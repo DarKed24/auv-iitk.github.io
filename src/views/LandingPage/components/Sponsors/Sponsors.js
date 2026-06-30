@@ -1,74 +1,57 @@
-import React from 'react'
-import solidworks from 'assets/img/sponsors/solidworks.png'
-import mathworks from 'assets/img/sponsors/mathworks.png'
-import altium from 'assets/img/sponsors/altium.png'
-import ansys from 'assets/img/sponsors/ansys.jpg'
-import dord from 'assets/img/sponsors/dord-iitk.png'
-import sparton from 'assets/img/sponsors/sparton.png'
-import xsens from 'assets/img/sponsors/xsens.png'
-import ids from 'assets/img/sponsors/ids.png'
-import './Sponsors.css'
-import { Col, Container, Row } from 'reactstrap'
+import React from "react";
+import solidworks from "assets/img/sponsors/solidworks.png";
+import mathworks from "assets/img/sponsors/mathworks.png";
+import altium from "assets/img/sponsors/altium.png";
+import ansys from "assets/img/sponsors/ansys.jpg";
+import dord from "assets/img/sponsors/dord-iitk.png";
+import sparton from "assets/img/sponsors/sparton.png";
+import xsens from "assets/img/sponsors/xsens.png";
+import ids from "assets/img/sponsors/ids.png";
+import "./Sponsors.css";
+
+const ROW_A = [
+  { src: altium, alt: "Altium" },
+  { src: xsens, alt: "Xsens" },
+  { src: ids, alt: "IDS" },
+  { src: ansys, alt: "Ansys" },
+];
+const ROW_B = [
+  { src: sparton, alt: "Sparton" },
+  { src: mathworks, alt: "MathWorks" },
+  { src: solidworks, alt: "SolidWorks" },
+  { src: dord, alt: "DoRD IIT Kanpur" },
+];
+
+function MarqueeRow({ logos, reverse }) {
+  const items = [...logos, ...logos, ...logos];
+  return (
+    <div className={`lm-logos__row ${reverse ? "lm-logos__row--rev" : ""}`}>
+      <div className="lm-logos__track">
+        {items.map((l, i) => (
+          <div className="lm-logos__tile" key={i}>
+            <img src={l.src} alt={l.alt} />
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
 
 function Sponsors() {
-    return (
-        <> 
-            <div className="section landing-section light-auv" style={{backgroundColor:"yellow"}}>
-          <Container >
-            <Row style={{textAlign:"center"}}>
-              <Col md="2"></Col>
-              <Col className="ml-auto mr-auto" md="8">
-                <h2 className="text-center heading-main">OUR SPONSORS</h2>
-                <br />
-              </Col>
-              <Col md="2"></Col>
-              <br />
-            </Row>
-            <Row style={{textAlign:"center"}} className="top-margin-reduce" >
-                <Col md="3" sm="6">
-                  <img src={altium} className="img-responsive1"></img>
-                </Col>
-                <Col md="3" sm="6">
-                  <img src={xsens} className="img-responsive1"></img>
-                </Col>
-                <Col md="3" sm="6"> 
-                  <img src={ids} className="img-responsive1"></img>
-                </Col>  
-                <Col md="3" sm="6">
-                  <img src={ansys} className="img-responsive1"></img>
-                </Col>
-            </Row>
-                            <br />
-              <Row style={{textAlign:"center"}}>
-              
-              <Col md="4" sm="6" >
-                <img src={sparton} className="img-responsive1"></img>
-              </Col>
-              
-              <Col md="4" sm="6">
-                <img src={mathworks}  className="img-responsive1"></img>
-              </Col>
-              {/* <Col md="0" sm="4"></Col> */}
-              <Col md="4" sm="12">
-                <img src={solidworks} className=" img-responsive1"></img>
-              </Col> 
-
-              </Row>
-                <br/>
-              <Row style={{textAlign:"center"}}>
-              <Col md="4" xs="2">
-              </Col>
-              <Col md="4" xs="12">
-              <img src={dord} className="img-responsive1"></img>
-              </Col>
-
-              <Col md="4" xs="2">
-              </Col>
-            </Row>
-          </Container>
-        </div>
-        
-        </>
-  )
+  return (
+    <section className="lm-sponsors">
+      <div className="lm-container">
+        <span className="lm-eyebrow lm-eyebrow--center">Backed by the best</span>
+        <h2 className="lm-heading lm-heading--center">
+          Our <span className="lm-grad">sponsors</span>
+        </h2>
+      </div>
+      <div className="lm-logos">
+        <MarqueeRow logos={ROW_A} />
+        <MarqueeRow logos={ROW_B} reverse />
+      </div>
+    </section>
+  );
 }
+
 export default Sponsors;

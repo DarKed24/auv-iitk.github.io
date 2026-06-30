@@ -12,4 +12,33 @@
   /* Fonts */
   --font-primary: Titillium Web, Roboto, Arial;
   --font-heading: Overpass;
+
+  /* ===== Modern landing-page theme tokens ===== */
+  /* Deep-ocean "descent" palette */
+  --ocean-surface: #0a2236;
+  --ocean-mid: #081627;
+  --ocean-abyss: #03080f;
+
+  /* Cyan / aqua accents */
+  --accent-cyan: #43d0f0;
+  --accent-aqua: #5ab9ea;
+  --accent-glow: rgba(67, 208, 240, 0.55);
+
+  /* Text on dark */
+  --ocean-text: #e6f1f7;
+  --ocean-muted: #9fb4c4;
+
+  /* Glassmorphism surfaces */
+  --glass-bg: rgba(255, 255, 255, 0.045);
+  --glass-bg-strong: rgba(255, 255, 255, 0.07);
+  --glass-border: rgba(120, 200, 235, 0.18);
+  --glass-shadow: 0 18px 50px rgba(0, 0, 0, 0.45);
+
+  /* Gradients */
+  --grad-heading: linear-gradient(100deg, #ffffff 0%, #8fdcf3 45%, #43d0f0 100%);
+  --grad-accent: linear-gradient(120deg, #2152cc 0%, #43d0f0 100%);
+
+  /* Modern display font for the landing page */
+  --font-display: "Space Grotesk", "Sora", var(--font-heading), sans-serif;
+  --font-body-modern: "Sora", var(--font-primary), sans-serif;
 }
