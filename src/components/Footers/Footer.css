@@ -1,100 +1,311 @@
-.footer-new {
-  background-color: rgb(34, 70, 109);
-  width: 100%;
-  margin: 0px;
-  padding-bottom: 20px;
+/* =====================================================================
+   AUV-IITK footer — deep-ocean theme
+   (html font-size is 62.5%  ->  1rem = 10px)
+   ===================================================================== */
+
+.site-footer {
+  position: relative;
+  background: linear-gradient(180deg, #04101e 0%, #020a13 100%);
+  color: #cfe0ec;
+  overflow: hidden;
 }
 
-.footer-heading {
-  width: 100%;
-  margin: 0;
-  padding: 0;
+/* glowing accent line across the very top */
+.site-footer::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    #2152cc,
+    #43d0f0,
+    #2152cc,
+    transparent
+  );
+  opacity: 0.85;
 }
 
-.logo-description {
-  padding: 40px 10px;
+/* soft ambient glow rising from the bottom */
+.site-footer::after {
+  content: "";
+  position: absolute;
+  bottom: -45%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 64rem;
+  height: 64rem;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(33, 82, 204, 0.18), transparent 70%);
+  pointer-events: none;
 }
 
-.footer-row {
-  margin-right: 0;
+.site-footer__inner {
+  position: relative;
+  z-index: 1;
+  max-width: 120rem;
+  margin: 0 auto;
+  padding: 6rem 3rem 3rem;
 }
 
-.footer-heading-primary {
-  font-family: var(--font-heading);
-  font-weight: 500;
-  color: white;
-  font-size: 2.3rem;
+.site-footer__grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 1.4fr;
+  gap: 4rem;
 }
 
-.footer-address {
-  font-family: var(--font-primary);
-  color: white;
-  font-size: 14px;
+/* ---------- Brand ---------- */
+.site-footer__logo {
+  width: 14rem;
+  margin-bottom: 1.6rem;
+  filter: drop-shadow(0 4px 14px rgba(0, 0, 0, 0.5));
 }
-
-.quick-social-links {
-  padding: 40px 20px;
-}
-
-.footer-links-heading {
-  color: var(--color-tertiary);
-  font-size: 17px;
-  font-weight: 500;
-}
-
-.footer-nav-link {
-  color: white !important;
-  font-size: 12px;
-  padding: 2px;
-  font-weight: 500;
-}
-
-.footer-nav-link:hover {
-  color: var(--color-tertiary) !important;
-  transition: all 0.3s ease-in;
-}
-
-.footer-nav-icon {
-  margin: 0.5rem 1rem;
-  text-align: center;
-  padding: 0.5rem;
-  font-family: var(--font-primary);
-  color: white !important;
-  font-size: 3rem;
-  font-weight: 400;
-}
-
-.footer-nav-icon > i {
+.site-footer__name {
+  font-family: var(--font-display);
+  font-size: 2rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
   color: #ffffff;
+  margin-bottom: 1.1rem;
+}
+.site-footer__tagline {
+  font-family: var(--font-body-modern);
+  font-size: 1.4rem;
+  font-weight: 300;
+  line-height: 1.75;
+  color: #9fb4c4;
+  max-width: 38rem;
+  margin-bottom: 1.8rem;
+}
+.site-footer__address {
+  font-family: var(--font-body-modern);
+  font-size: 1.3rem;
+  line-height: 1.7;
+  color: #9fb4c4;
+  max-width: 34rem;
+}
+.site-footer__address i {
+  color: var(--accent-cyan);
+  margin-right: 0.7rem;
 }
 
-.footer-nav-icon > i:hover {
-  color: var(--color-tertiary);
-  transition: all 0.3s ease-in;
-}
-
-.nav-icons-container {
+/* ---------- Link columns ---------- */
+.site-footer__col {
   display: flex;
-  margin: 0;
-  padding: 0;
+  flex-direction: column;
+}
+.site-footer__heading {
+  position: relative;
+  font-family: var(--font-display);
+  font-size: 1.4rem;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: #ffffff;
+  margin-bottom: 2rem;
+  padding-bottom: 0.9rem;
+}
+.site-footer__heading::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 3rem;
+  height: 2px;
+  border-radius: 2px;
+  background: var(--grad-accent);
+  box-shadow: 0 0 10px rgba(67, 208, 240, 0.5);
 }
 
-@media screen and (max-width: 650px) {
-  .footer-nav-link {
-    display: none;
-  }
-  .footer-links-heading {
-    display: none;
-  }
+.site-footer__link {
+  position: relative;
+  width: fit-content;
+  font-family: var(--font-body-modern);
+  font-size: 1.4rem;
+  color: #aebfcc !important;
+  text-decoration: none;
+  padding: 0.5rem 0;
+  transition: color 0.25s ease, padding-left 0.25s ease;
+}
+.site-footer__link::before {
+  content: "→";
+  position: absolute;
+  left: -1.4rem;
+  opacity: 0;
+  color: var(--accent-cyan);
+  transition: opacity 0.25s ease, transform 0.25s ease;
+}
+.site-footer__link:hover {
+  color: #ffffff !important;
+  padding-left: 1.4rem;
+  text-decoration: none;
+}
+.site-footer__link:hover::before {
+  opacity: 1;
+}
 
-  .nav-icons-container {
-    display: flex;
-    justify-content: space-around;
+/* ---------- Socials ---------- */
+.site-footer__socials {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-top: 1.8rem;
+}
+.site-footer__social {
+  width: 4rem;
+  height: 4rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  font-size: 1.7rem;
+  color: #6fe0fb !important;
+  background: rgba(67, 208, 240, 0.1);
+  border: 1px solid rgba(67, 208, 240, 0.4);
+  transition: transform 0.3s ease, background 0.3s ease, color 0.3s ease,
+    box-shadow 0.3s ease;
+}
+.site-footer__social i {
+  color: inherit;
+}
+.site-footer__social:hover {
+  color: #02131f !important;
+  background: linear-gradient(120deg, #8fe6ff, #43d0f0);
+  border-color: transparent;
+  transform: translateY(-3px);
+  box-shadow: 0 10px 24px rgba(67, 208, 240, 0.45);
+}
+
+/* ---------- Bottom bar ---------- */
+.site-footer__bottom {
+  margin-top: 4.5rem;
+  padding-top: 2.4rem;
+  border-top: 1px solid rgba(120, 200, 235, 0.12);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+  font-family: var(--font-body-modern);
+  font-size: 1.3rem;
+  letter-spacing: 0.03em;
+  color: #c2d2de;
+}
+
+/* ---------- Interactive water surface ---------- */
+.fb-surface {
+  position: relative;
+  height: 11rem;
+  overflow: hidden;
+  cursor: crosshair;
+  border-bottom: 1px solid rgba(120, 200, 235, 0.1);
+  background: linear-gradient(180deg, rgba(67, 208, 240, 0.07), transparent 75%);
+}
+.fb-hint {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-family: var(--font-body-modern);
+  font-size: 1.25rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: rgba(159, 180, 196, 0.55);
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+  white-space: nowrap;
+}
+.fb-surface:hover .fb-hint {
+  opacity: 0.3;
+}
+
+.fb-bubble {
+  position: absolute;
+  bottom: 0;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle at 30% 30%,
+    rgba(255, 255, 255, 0.9),
+    rgba(140, 215, 245, 0.3) 45%,
+    rgba(140, 215, 245, 0.05) 70%
+  );
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  box-shadow: 0 0 8px rgba(120, 210, 245, 0.45);
+  pointer-events: none;
+  animation: fbRise var(--dur, 3s) ease-in forwards;
+}
+@keyframes fbRise {
+  0% { transform: translate(0, 0) scale(0.5); opacity: 0; }
+  15% { opacity: 0.95; }
+  100% { transform: translate(var(--dx, 0), -11rem) scale(1.05); opacity: 0; }
+}
+
+.fb-ripple {
+  position: absolute;
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  border: 2px solid rgba(67, 208, 240, 0.7);
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+  animation: fbRipple 0.7s ease-out forwards;
+}
+@keyframes fbRipple {
+  0% { width: 4px; height: 4px; opacity: 0.9; }
+  100% { width: 13rem; height: 13rem; opacity: 0; }
+}
+
+/* ---------- Responsive ---------- */
+@media (max-width: 900px) {
+  .site-footer__grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 3.5rem;
   }
-  .footer-heading-primary {
-    font-size: 1.8rem;
+  .site-footer__brand {
+    grid-column: 1 / -1;
   }
-  .footer-address {
-    font-size: 12px;
+}
+
+@media (max-width: 560px) {
+  .site-footer__inner {
+    padding: 3.5rem 2rem 2.2rem;
+  }
+  /* keep two compact columns (not one tall stack) to shorten the footer */
+  .site-footer__grid {
+    gap: 2.2rem 1.6rem;
+  }
+  .site-footer__brand {
+    margin-bottom: 0.4rem;
+  }
+  .site-footer__tagline {
+    margin-bottom: 1.2rem;
+  }
+  .site-footer__heading {
+    margin-bottom: 1.4rem;
+  }
+  .site-footer__link {
+    padding: 0.35rem 0;
+  }
+  .site-footer__socials {
+    margin-top: 1.2rem;
+  }
+  .site-footer__bottom {
+    flex-direction: column;
+    text-align: center;
+    gap: 0.6rem;
+    margin-top: 2.8rem;
+    padding-top: 1.8rem;
+  }
+}
+
+/* The interactive bubble surface is cursor-driven, so it makes no sense on
+   touch devices or narrow screens — hide it there (also trims the footer
+   height on mobile/tablet-portrait). */
+@media (hover: none), (max-width: 1024px) {
+  .fb-surface {
+    display: none;
   }
 }

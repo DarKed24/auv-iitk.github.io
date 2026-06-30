@@ -1,40 +1,33 @@
-import React from 'react';
-//import teamphoto from "assets/img/team-photo.jpg"
-import teamphoto from "assets/img/DSC02829.jpg"
-import { Link } from 'react-router-dom';
-import {useEffect} from "react";
-
-import "./Team.css"
-import {
- 
-    Col,
-    Container,
-    Row
-} from "reactstrap";
+import React from "react";
+import teamphoto from "assets/img/DSC02829.jpg";
+import { Link } from "react-router-dom";
+import "./Team.css";
 
 function Team() {
-    useEffect(() => {
-        window.scrollTo(0, 0)
-      });
-    return (
-        <div style={{marginTop:"8rem"}}>
-            <div className="">
-                <Container style={{textAlign:"center"}}>
-                    <Row>
-                        <Col className="" md="12">
-                            <h2 className="text-center heading-main">OUR TEAM</h2>
-                            <img src={teamphoto} className="w-100 "></img>
-                            <p className="description text-center mb-2 auv-description-primary">Over the past years, the team has witnessed a close collaboration between students from various departments coming and sharing ideas; creating a small yet strong network of people who are eagerly looking for a low-cost solution to large-scale problems.</p>
-                            <p className="description text-center mb-3 auv-description-primary">Working long hours and brainstorming some complex problems leads to a very special bonding between the members of the teams. This leads to a lot of nicknames and some extremely fun gaming nights.</p>
-                        </Col>
-                        <Link to='/team' className="mt-3 blogs-more-button ml-auto mr-auto">
-                        More
-                        </Link>
-                    </Row>
-                </Container>
-            </div>
-
-        </div>
-  )
+  return (
+    <section
+      className="lm-team"
+      style={{ backgroundImage: `url(${teamphoto})` }}
+    >
+      <div className="lm-team__overlay" />
+      <div className="lm-container lm-team__inner">
+        <span className="lm-eyebrow lm-eyebrow--center">The People</span>
+        <h2 className="lm-heading lm-heading--center">
+          A crew that <span className="lm-grad">never sleeps</span>
+        </h2>
+        <p className="lm-team__text">
+          Over the years our team has brought together students from every
+          department — sharing ideas and building a small but fierce network of
+          people chasing low-cost solutions to large-scale problems. Long nights
+          and hard problems forge a bond (and plenty of nicknames) that lasts
+          well beyond the lab.
+        </p>
+        <Link to="/team" className="lp-btn lp-btn--primary">
+          <span>Meet the Team</span>
+        </Link>
+      </div>
+    </section>
+  );
 }
+
 export default Team;

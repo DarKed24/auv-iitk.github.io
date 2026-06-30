@@ -22,9 +22,17 @@ import {
 function ExamplesNavbar(props) {
   const [navbarCollapse, setNavbarCollapse] = React.useState(false);
 
+  // Visibility is driven purely by the reactstrap `.show` state (see the CSS).
+  // We deliberately do NOT toggle paper-kit's off-canvas "nav-open" class —
+  // that was shifting the whole bar (logo off-screen, toggler to the left).
   const toggleNavbarCollapse = () => {
     setNavbarCollapse(!navbarCollapse);
-    document.documentElement.classList.toggle("nav-open");
+  };
+
+  // Used by nav links: only ever closes the menu.
+  const closeNavbar = () => {
+    setNavbarCollapse(false);
+    document.documentElement.classList.remove("nav-open");
   };
   const [scrolled, setScrolled] = React.useState(false);
 
@@ -49,7 +57,7 @@ function ExamplesNavbar(props) {
 
   return (
     <div className={x.join(" ")}>
-      <Navbar color-on-scroll="300" expand="lg" className="custom-navbar-auv">
+      <Navbar color-on-scroll="300" expand="xl" className="custom-navbar-auv">
         <Container className="navbar-container">
           <div className="navbar-translate">
             <NavbarBrand
@@ -91,7 +99,7 @@ function ExamplesNavbar(props) {
                   }
                   to="/landing-page"
                   tag={Link}
-                  onClick={toggleNavbarCollapse}
+                  onClick={closeNavbar}
                 >
                   Home
                 </NavLink>
@@ -105,13 +113,13 @@ function ExamplesNavbar(props) {
                   }
                   to="/about-us"
                   tag={Link}
-                  onClick={toggleNavbarCollapse}
+                  onClick={closeNavbar}
                 >
                   About Us
                 </NavLink>
               </NavItem>
               {/* <NavItem>
-                <NavLink className={props.activePage === "/team" ? "navbar-content active" : "navbar-content"} to="/team" tag={Link} onClick={toggleNavbarCollapse}>
+                <NavLink className={props.activePage === "/team" ? "navbar-content active" : "navbar-content"} to="/team" tag={Link} onClick={closeNavbar}>
                   Team
                 </NavLink>
               </NavItem> */}
@@ -142,7 +150,7 @@ function ExamplesNavbar(props) {
                     <DropdownItem
                       style={{ textAlign: "center" }}
                       className="auv-dropdown"
-                      onClick={toggleNavbarCollapse}
+                      onClick={closeNavbar}
                     >
                       Overview
                     </DropdownItem>
@@ -151,7 +159,7 @@ function ExamplesNavbar(props) {
                     <DropdownItem
                       style={{ textAlign: "center" }}
                       className="auv-dropdown"
-                      onClick={toggleNavbarCollapse}
+                      onClick={closeNavbar}
                     >
                       Mechanical
                     </DropdownItem>
@@ -160,7 +168,7 @@ function ExamplesNavbar(props) {
                     <DropdownItem
                       style={{ textAlign: "center" }}
                       className=" auv-dropdown"
-                      onClick={toggleNavbarCollapse}
+                      onClick={closeNavbar}
                     >
                       Electrical
                     </DropdownItem>
@@ -169,7 +177,7 @@ function ExamplesNavbar(props) {
                     <DropdownItem
                       style={{ textAlign: "center" }}
                       className="auv-dropdown"
-                      onClick={toggleNavbarCollapse}
+                      onClick={closeNavbar}
                     >
                       Software
                     </DropdownItem>
@@ -178,7 +186,7 @@ function ExamplesNavbar(props) {
                     <DropdownItem
                       style={{ textAlign: "center" }}
                       className="auv-dropdown"
-                      onClick={toggleNavbarCollapse}
+                      onClick={closeNavbar}
                     >
                       Business
                     </DropdownItem>
@@ -194,7 +202,7 @@ function ExamplesNavbar(props) {
                   }
                   to="/events"
                   tag={Link}
-                  onClick={toggleNavbarCollapse}
+                  onClick={closeNavbar}
                 >
                   Events
                 </NavLink>
@@ -230,7 +238,7 @@ function ExamplesNavbar(props) {
                     <DropdownItem
                       style={{ textAlign: "center" }}
                       className="auv-dropdown"
-                      onClick={toggleNavbarCollapse}
+                      onClick={closeNavbar}
                     >
                       Tarang
                     </DropdownItem>
@@ -239,7 +247,7 @@ function ExamplesNavbar(props) {
                     <DropdownItem
                       style={{ textAlign: "center" }}
                       className="auv-dropdown"
-                      onClick={toggleNavbarCollapse}
+                      onClick={closeNavbar}
                     >
                       Atal
                     </DropdownItem>
@@ -248,7 +256,7 @@ function ExamplesNavbar(props) {
                     <DropdownItem
                       style={{ textAlign: "center" }}
                       className=" auv-dropdown"
-                      onClick={toggleNavbarCollapse}
+                      onClick={closeNavbar}
                     >
                       Anahita
                     </DropdownItem>
@@ -257,7 +265,7 @@ function ExamplesNavbar(props) {
                     <DropdownItem
                       style={{ textAlign: "center" }}
                       className="auv-dropdown"
-                      onClick={toggleNavbarCollapse}
+                      onClick={closeNavbar}
                     >
                       Varun
                     </DropdownItem>

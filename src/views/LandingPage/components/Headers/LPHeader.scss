@@ -1,306 +1,516 @@
-.header-background {
-  background-image: linear-gradient(to bottom, rgba(0, 0, 0, 1), black);
-  display: relative;
-}
+/* ====================================================================
+   AUV-IITK — Landing hero  ("surface" of the descent)
+   html font-size is 62.5%  ->  1rem = 10px
+   ==================================================================== */
 
-.header-styling {
-  /* font-size: 62.5%; */
-  background-image: url(../../../../assets/img/backgrounds/hdback.jpg);
-  opacity: 0.5;
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-position: center;
+.lp-hero {
+  --mx: 0;
+  --my: 0;
+  position: relative;
+  width: 100%;
   height: 100vh;
-  max-width: 100%;
+  min-height: 62rem;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: radial-gradient(
+    130% 100% at 50% -15%,
+    #1b6da0 0%,
+    #0f4c7a 26%,
+    #0b3157 50%,
+    #0a2236 72%,
+    #061626 100%
+  );
 }
 
-.banner-content-container {
+/* Underwater photo, drifting + reacting to the pointer */
+.lp-hero__bg {
   position: absolute;
-  width: 100rem;
-  top: 50%;
+  inset: -6% -6% 0 -6%;
+  background-image: url(../../../../assets/img/backgrounds/hdback.jpg);
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  opacity: 0.4;
+  filter: saturate(1.2) contrast(1.05);
+  transform: scale(1.12) translate(calc(var(--mx) * -2.2rem), calc(var(--my) * -2.2rem));
+  transition: transform 0.5s ease-out;
+  animation: heroDrift 28s ease-in-out infinite alternate;
+}
+
+/* Animated god-ray / caustic light shafts from the surface */
+.lp-hero__caustics {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(50% 60% at 25% -10%, rgba(120, 220, 255, 0.3), transparent 70%),
+    radial-gradient(45% 55% at 75% -15%, rgba(80, 180, 240, 0.24), transparent 70%),
+    conic-gradient(
+      from 180deg at 50% -20%,
+      transparent 0deg,
+      rgba(140, 225, 255, 0.12) 30deg,
+      transparent 60deg,
+      rgba(140, 225, 255, 0.09) 120deg,
+      transparent 160deg
+    );
+  mix-blend-mode: screen;
+  animation: causticShift 14s ease-in-out infinite alternate;
+  pointer-events: none;
+}
+
+/* Colour-shifting ambient glow that floats behind the title */
+.lp-hero__glow {
+  position: absolute;
+  width: 70rem;
+  height: 70rem;
   left: 50%;
-  transform: translate(-50%, -50%);
-  // border: 1px solid yellow;
+  top: 45%;
+  border-radius: 50%;
+  transform: translate(-50%, -50%)
+    translate(calc(var(--mx) * 3rem), calc(var(--my) * 3rem));
+  background: radial-gradient(circle, rgba(67, 208, 240, 0.28), transparent 62%);
+  filter: blur(20px);
+  mix-blend-mode: screen;
+  animation: glowPulse 9s ease-in-out infinite;
+  pointer-events: none;
+}
+
+.lp-hero__vignette {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(120% 100% at 50% 30%, transparent 38%, rgba(3, 10, 20, 0.62) 100%);
+  pointer-events: none;
+}
+
+/* ---------- Bubbles ---------- */
+.lp-hero__bubbles {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 2;
+}
+
+.lp-bubble {
+  position: absolute;
+  bottom: -6rem;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle at 30% 30%,
+    rgba(255, 255, 255, 0.85),
+    rgba(140, 215, 245, 0.25) 45%,
+    rgba(140, 215, 245, 0.04) 70%
+  );
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  box-shadow: 0 0 8px rgba(120, 210, 245, 0.35);
+  opacity: 0;
+  animation-name: bubbleRise;
+  animation-timing-function: ease-in;
+  animation-iteration-count: infinite;
+}
+
+/* ---------- Foreground content ---------- */
+.lp-hero__content {
+  position: relative;
+  z-index: 3;
   display: flex;
   flex-direction: column;
-}
-.banner-auv-logo {
-  width: 40%;
-  max-width: 30rem;
-  align-self: center;
-  margin-bottom: 3rem;
-  // margin: 0 auto !important;
-  // border: 1rem solid pink;
-  animation-name: moveInTop;
-  animation-delay: 1s;
-  animation-duration: 0.5s;
-  animation-fill-mode: backwards;
+  align-items: center;
+  text-align: center;
+  padding: 0 2rem;
+  transform: translate(calc(var(--mx) * 1.4rem), calc(var(--my) * 1.4rem));
+  transition: transform 0.4s ease-out;
 }
 
-.banner-heading {
-  font-family: var(--font-heading);
+.lp-hero__kicker {
+  font-family: var(--font-body-modern);
+  font-size: clamp(1.1rem, 1.6vw, 1.6rem);
+  letter-spacing: 0.42em;
+  text-transform: uppercase;
+  color: var(--accent-aqua);
+  margin-bottom: 1.6rem;
+  padding-left: 0.42em;
+  opacity: 0;
+  animation: fadeUp 1s ease 0.2s forwards;
+}
+
+.lp-hero__title {
+  font-family: var(--font-display);
   font-weight: 700;
-  color: white;
-  opacity: 0.9;
-  text-align: center;
-  text-shadow: 2px 3px 10px rgba(0, 0, 0, 0.6);
-  font-size: 8.5rem;
-  animation-name: moveInTop;
-  animation-delay: 0s;
-  animation-duration: 1s;
-  animation-fill-mode: backwards;
+  margin: 0;
+  line-height: 0.92;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.2rem;
 }
 
-.banner-subheading {
-  font-family: var(--font-heading);
-  font-weight: 400;
-  color: white;
-  opacity: 0.8;
-  font-size: 3rem;
-  text-align: center;
-  animation-name: fadeIn;
-  animation-duration: 1s;
-  animation-delay: 3.2s;
-  animation-fill-mode: backwards;
-}
-.triton-container {
-  position: absolute;
-  top: 20rem;
-  left: -38rem;
-  width: 60rem;
-  height: 30rem;
+.lp-hero__title-pre {
+  font-size: clamp(1.8rem, 3vw, 3rem);
+  font-weight: 500;
+  letter-spacing: 0.7em;
+  padding-left: 0.7em;
+  color: rgba(230, 245, 252, 0.85);
+  opacity: 0;
+  animation: fadeUp 1s ease 0.35s forwards;
 }
 
-.triton-banner {
-  position: absolute;
-  z-index: 100;
-  width: 100%;
-  opacity: 80%;
-  animation-name: appearFromTop;
-  animation-duration: 2s;
+.lp-hero__title-main {
+  font-size: clamp(5.5rem, 13vw, 15rem);
+  letter-spacing: 0.02em;
+  text-shadow: 0 8px 40px rgba(0, 0, 0, 0.5);
 }
 
-.triton-light {
-  position: absolute;
-  display: none;
-  width: 100%;
-  top: -32rem;
-  right: -48rem;
-  opacity: 0.1;
-  -webkit-transform: rotate(-110deg);
-  -moz-transform: rotate(-110deg);
-  -ms-transform: rotate(-110deg);
-  -o-transform: rotate(-110deg);
-  transform: rotate(-110deg);
-  animation-delay: 2s;
-  animation-name: lightAppear;
-  animation-duration: 1s;
-  animation-fill-mode: backwards;
+.lp-hero__char {
+  display: inline-block;
+  background: linear-gradient(
+    115deg,
+    #ffffff 0%,
+    #a7ecff 22%,
+    #43d0f0 45%,
+    #2a8fd6 65%,
+    #8fdcf3 85%,
+    #ffffff 100%
+  );
+  background-size: 300% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  opacity: 0;
+  transform: translateY(0.6em) rotateX(-50deg);
+  animation: charReveal 0.8s cubic-bezier(0.22, 1, 0.36, 1) forwards,
+    colorFlow 8s ease-in-out infinite;
 }
 
-.banner-dive-button {
+.lp-hero__tagline {
+  font-family: var(--font-body-modern);
+  font-weight: 300;
+  font-size: clamp(1.5rem, 2.3vw, 2.4rem);
+  letter-spacing: 0.4em;
+  text-transform: uppercase;
+  color: var(--ocean-muted);
+  margin: 2.2rem 0 0;
+  padding-left: 0.4em;
+  opacity: 0;
+  animation: fadeUp 1s ease 1.2s forwards;
+}
+
+/* ---------- Actions ---------- */
+.lp-hero__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.6rem;
+  justify-content: center;
+  margin-top: 3.4rem;
+  opacity: 0;
+  animation: fadeUp 1s ease 1.5s forwards;
+}
+
+.lp-btn {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.4rem 3.8rem;
+  border-radius: 999px;
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 1.6rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  text-decoration: none;
+  cursor: pointer;
+  overflow: hidden;
   border: none;
-  display: block;
-  text-align: center;
-  margin: 2rem auto;
-  margin-top: 4rem;
-  padding: 1rem 4rem;
-  font-family: var(--font-primary);
-  font-weight: 400;
-  color: #152238;
-  color: var(--color-primary);
-  font-size: 2rem;
-  background-color: rgb(221, 223, 255);
-  transition: all 0.3s;
-  border-radius: 20px;
-  animation-name: moveInBottom;
-  animation-delay: 2s;
-  animation-fill-mode: backwards;
-  animation-duration: 1s;
-  z-index: 1000;
+  transition: transform 0.3s ease, box-shadow 0.3s ease, background-position 0.6s ease,
+    color 0.3s ease, border-color 0.3s ease;
 }
 
-.banner-dive-button:focus {
+.lp-btn span {
+  position: relative;
+  z-index: 1;
+  color: inherit;
+}
+
+.lp-btn:focus {
   outline: none;
 }
 
-.banner-dive-button:hover {
-  // background-color: #152238;
-  // color: aliceblue;
-  transform: translateY(-5px);
-  transform: scale(1.05);
+.lp-btn--primary,
+.lp-btn--primary:link,
+.lp-btn--primary:visited,
+.lp-btn--primary:focus,
+.lp-btn--primary:active {
+  color: #02131f;
 }
 
-// Media Queries
-
-@media screen and (max-width: 1600px) {
-  .triton-container {
-    width: 40rem;
-    left: -20rem;
-  }
-
-  .triton-light {
-    right: -33rem;
-    top: -22rem;
-  }
+.lp-btn--primary {
+  background: linear-gradient(120deg, #8fe6ff, #43d0f0 50%, #2a9fd6);
+  background-size: 200% 100%;
+  box-shadow: 0 10px 30px rgba(67, 208, 240, 0.4), 0 0 0 1px rgba(255, 255, 255, 0.2) inset;
 }
 
-@media screen and (max-width: 1300px) {
-  .triton-container {
-    display: none;
-    left: -40rem;
-  }
+.lp-btn--primary::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -120%;
+  width: 60%;
+  height: 100%;
+  background: linear-gradient(100deg, transparent, rgba(255, 255, 255, 0.7), transparent);
+  transform: skewX(-20deg);
+  transition: left 0.6s ease;
 }
 
-@media screen and (max-width: 1050px) {
-  .banner-content-container {
-    width: 80rem;
-  }
+.lp-btn--primary:hover {
+  transform: translateY(-4px) scale(1.04);
+  background-position: 100% 0;
+  box-shadow: 0 16px 44px rgba(67, 208, 240, 0.6), 0 0 0 1px rgba(255, 255, 255, 0.35) inset;
 }
 
-@media screen and (max-width: 850px) {
-  .banner-content-container {
-    width: 60rem;
-  }
-
-  .banner-auv-logo {
-    width: 35%;
-  }
-  .banner-heading {
-    font-size: 6rem;
-  }
-
-  .banner-subheading {
-    font-size: 2.5rem;
-  }
-
-  .banner-dive-button {
-    padding: 0.5rem 3rem;
-  }
-}
-@media screen and (max-width: 767px) {
-  .banner-content-container {
-    top: 50vh;
-    z-index: 99;
-  }
+.lp-btn--primary:hover::before {
+  left: 130%;
 }
 
-@media screen and (max-width: 630px) {
-  .banner-content-container {
-    width: 40rem;
-  }
-
-  .banner-heading {
-    font-size: 5rem;
-  }
+.lp-btn--ghost,
+.lp-btn--ghost:link,
+.lp-btn--ghost:visited,
+.lp-btn--ghost:focus,
+.lp-btn--ghost:active {
+  color: var(--ocean-text);
 }
 
-@media screen and (max-width: 400px) {
-  .banner-content-container{
-    width: 30rem;
-    top: 50vh;
-  }
-
-  .banner-heading {
-    font-size: 4rem;
-  }
-
-  .banner-subheading{
-    font-size: 2rem;
-  }
+.lp-btn--ghost {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(143, 220, 243, 0.45);
+  backdrop-filter: blur(6px);
 }
 
-// Animations
-@keyframes moveInLeft {
-  0% {
-    opacity: 0;
-    transform: translateX(-10rem);
-  }
-
-  80% {
-    transform: translateX(1rem);
-  }
-
-  100% {
-    opacity: 1;
-    transform: translate(0);
-  }
+.lp-btn--ghost:hover {
+  transform: translateY(-4px) scale(1.04);
+  border-color: var(--accent-cyan);
+  box-shadow: 0 14px 36px rgba(67, 208, 240, 0.3);
+  color: #fff;
 }
 
-@keyframes moveInRight {
-  0% {
-    opacity: 0;
-    transform: translateX(10rem);
-  }
-
-  80% {
-    transform: translateX(-1rem);
-  }
-
-  100% {
-    opacity: 1;
-    transform: translate(0);
-  }
+/* ---------- Scroll cue ---------- */
+.lp-hero__scroll {
+  position: absolute;
+  bottom: 9rem;
+  left: 0;
+  right: 0;
+  margin: 0 auto;
+  width: fit-content;
+  z-index: 4;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  background: none;
+  border: none;
+  cursor: pointer;
+  opacity: 0;
+  animation: fadeUp 1s ease 1.9s forwards;
 }
 
-@keyframes moveInBottom {
-  0% {
-    opacity: 0;
-    transform: translateY(3rem);
-  }
-
-  100% {
-    opacity: 1;
-    transform: translate(0);
-  }
+.lp-hero__scroll:focus {
+  outline: none;
 }
 
-@keyframes appearFromTop {
-  0% {
-    opacity: 100%;
-    transform: translateY(40rem);
-  }
-
-  70% {
-    transform: translateY(-5rem);
-  }
-  100% {
-    transform: translateY(0rem);
-  }
-}
-@keyframes moveInTop {
-  0% {
-    transform: translateY(-20rem);
-    opacity: 0;
-  }
-  100% {
-    transform: translateY(0);
-    opacity: 1;
-  }
-}
-@keyframes fadeIn {
-  0% {
-    opacity: 0;
-  }
-  100% {
-    opacity: 100%;
-  }
+.lp-hero__mouse {
+  width: 2.6rem;
+  height: 4.4rem;
+  border: 2px solid rgba(220, 240, 250, 0.7);
+  border-radius: 1.6rem;
+  display: flex;
+  justify-content: center;
+  padding-top: 0.7rem;
 }
 
-@keyframes lightAppear {
-  0% {
-    opacity: 0;
-  }
+.lp-hero__wheel {
+  width: 0.5rem;
+  height: 0.9rem;
+  border-radius: 1rem;
+  background: var(--accent-cyan);
+  animation: wheelDrop 1.6s ease-in-out infinite;
+}
 
+.lp-hero__scroll-text {
+  font-family: var(--font-body-modern);
+  font-size: 1.1rem;
+  letter-spacing: 0.3em;
+  padding-left: 0.3em; /* balance trailing letter-spacing so text reads centered */
+  text-transform: uppercase;
+  color: var(--ocean-muted);
+}
+
+/* ---------- Animated tide ---------- */
+.lp-hero__waves {
+  position: absolute;
+  bottom: -1px;
+  left: 0;
+  width: 100%;
+  line-height: 0;
+  z-index: 3;
+}
+
+.lp-hero__waves svg {
+  display: block;
+  width: 100%;
+  height: 14rem;
+}
+
+.lp-wave {
+  will-change: transform;
+}
+
+.lp-wave--1 {
+  fill: rgba(67, 208, 240, 0.18);
+  animation: waveFlow 13s linear infinite;
+}
+.lp-wave--2 {
+  fill: rgba(33, 82, 204, 0.28);
+  animation: waveFlow 17s linear infinite reverse;
+}
+.lp-wave--3 {
+  fill: rgba(10, 34, 54, 0.55);
+  animation: waveFlow 23s linear infinite;
+}
+.lp-wave--4 {
+  fill: var(--ocean-surface);
+  animation: waveFlow 31s linear infinite reverse;
+}
+
+/* ====================================================================
+   Animations
+   ==================================================================== */
+@keyframes heroDrift {
+  0% { background-position: 50% 50%; }
+  100% { background-position: 54% 46%; }
+}
+
+@keyframes causticShift {
+  0% { opacity: 0.7; transform: translateX(-2%); }
+  100% { opacity: 1; transform: translateX(2%); }
+}
+
+@keyframes glowPulse {
+  0%, 100% {
+    opacity: 0.7;
+    transform: translate(-50%, -50%)
+      translate(calc(var(--mx) * 3rem), calc(var(--my) * 3rem)) scale(0.92);
+  }
   50% {
-    opacity: 40%;
+    opacity: 1;
+    transform: translate(-50%, -50%)
+      translate(calc(var(--mx) * 3rem), calc(var(--my) * 3rem)) scale(1.08);
   }
+}
 
-  60% {
-    opacity: 0%;
+@keyframes bubbleRise {
+  0% { opacity: 0; transform: translateY(0) translateX(0) scale(0.6); }
+  10% { opacity: 0.9; }
+  50% { transform: translateY(-52vh) translateX(2rem) scale(1); }
+  90% { opacity: 0.7; }
+  100% { opacity: 0; transform: translateY(-108vh) translateX(-1.5rem) scale(1.1); }
+}
+
+@keyframes charReveal {
+  0% { opacity: 0; transform: translateY(0.6em) rotateX(-50deg); }
+  100% { opacity: 1; transform: translateY(0) rotateX(0); }
+}
+
+@keyframes colorFlow {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+
+@keyframes fadeUp {
+  0% { opacity: 0; transform: translateY(2.4rem); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes wheelDrop {
+  0% { opacity: 0; transform: translateY(-0.4rem); }
+  35% { opacity: 1; }
+  70% { opacity: 1; transform: translateY(1.4rem); }
+  100% { opacity: 0; transform: translateY(1.6rem); }
+}
+
+/* Travels exactly one wavelength (1440 viewBox units) while gently bobbing
+   vertically — Y returns to 0 at both ends so the loop is seamless. */
+@keyframes waveFlow {
+  0% { transform: translate(0, 0); }
+  25% { transform: translate(-360px, -7px); }
+  50% { transform: translate(-720px, 0); }
+  75% { transform: translate(-1080px, 7px); }
+  100% { transform: translate(-1440px, 0); }
+}
+
+/* ====================================================================
+   Responsive
+   ==================================================================== */
+@media screen and (max-width: 767px) {
+  .lp-hero__tagline { letter-spacing: 0.28em; }
+  .lp-hero__scroll { bottom: 6rem; }
+  .lp-hero__waves svg { height: 9rem; }
+}
+
+/* Landscape phones: very limited height. Scale the hero to the viewport with
+   vh-based type and drop the scroll cue so it can't overlap the buttons. */
+@media (orientation: landscape) and (max-height: 520px) {
+  .lp-hero {
+    height: auto;
+    min-height: 100vh;
+    padding: 7rem 2rem 4rem;
   }
+  .lp-hero__kicker {
+    margin-bottom: 0.7rem;
+    font-size: 1.1rem;
+  }
+  .lp-hero__title-pre {
+    font-size: 1.5rem;
+  }
+  .lp-hero__title-main {
+    font-size: clamp(3.4rem, 13vh, 7.5rem);
+  }
+  .lp-hero__tagline {
+    margin-top: 1rem;
+    font-size: 1.3rem;
+  }
+  .lp-hero__actions {
+    margin-top: 1.6rem;
+    gap: 1.2rem;
+  }
+  .lp-btn {
+    padding: 1rem 2.8rem;
+    font-size: 1.4rem;
+  }
+  .lp-hero__scroll {
+    display: none;
+  }
+  .lp-hero__waves svg {
+    height: 5.5rem;
+  }
+}
 
-  100% {
-    opacity: 40%;
+@media (prefers-reduced-motion: reduce) {
+  .lp-hero__bg,
+  .lp-hero__caustics,
+  .lp-hero__glow,
+  .lp-bubble,
+  .lp-hero__wheel,
+  .lp-hero__char,
+  .lp-wave {
+    animation: none !important;
+  }
+  .lp-hero__kicker,
+  .lp-hero__title-pre,
+  .lp-hero__char,
+  .lp-hero__tagline,
+  .lp-hero__actions,
+  .lp-hero__scroll {
+    opacity: 1 !important;
+    transform: none !important;
   }
 }

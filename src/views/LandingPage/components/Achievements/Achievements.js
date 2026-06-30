@@ -1,62 +1,63 @@
-import React from 'react'
-import { Col, Container, Row } from 'reactstrap'
-import paper from '../../../../assets/img/Achievements/mech-paper.jpg'
-import robosub from '../../../../assets/img/Achievements/robosub2021.jpeg'
-import niot from '../../../../assets/img/Achievements/niot.png'
-import './Achievements.css'
-import { Link } from 'react-router-dom'
+import React from "react";
+import paper from "../../../../assets/img/Achievements/mech-paper.jpg";
+import robosub from "../../../../assets/img/Achievements/robosub2021.jpeg";
+import niot from "../../../../assets/img/Achievements/niot.png";
+import "./Achievements.css";
+import { Link } from "react-router-dom";
 
-function Posts() {
-    return (
-        <>
-            <div className="section landing-section ">
-                <Container>
+const MILESTONES = [
+  {
+    year: "2021",
+    img: robosub,
+    title: "RoboSub 2021",
+    desc:
+      "3rd in Website, 4th & 6th in Skills Video, and 16th in TDR at the international RoboSub competition.",
+    link: "/events",
+  },
+  {
+    year: "2017 & 2019",
+    img: niot,
+    title: "NIOT-SAVe Runners-Up",
+    desc:
+      "Twice runners-up at the NIOT SAVe challenge, organised by the National Institute of Ocean Technology, Chennai.",
+    link: "/events",
+  },
+  {
+    year: "2018",
+    img: paper,
+    title: "IEEE OES Publication",
+    desc:
+      "Published a paper at the IEEE OES Symposium 2018 on the design and development of our open-frame AUV, Anahita.",
+    link: "/events",
+  },
+];
 
-                    <Row>
-                        <Col className="heading-main" style={{ textAlign: 'center' }}>OUR ACHIEVEMENTS</Col>
-                    </Row>
+function Achievements() {
+  return (
+    <section className="lm-achv">
+      <div className="lm-container">
+        <span className="lm-eyebrow lm-eyebrow--center">Milestones</span>
+        <h2 className="lm-heading lm-heading--center">
+          What we have <span className="lm-grad">achieved</span>
+        </h2>
 
-                    <div className="row ">
-                        <Col sm="12" lg="8" className="text-center">
-                            <h3 className="small-heading" />
-                            <Link to='/events'>
-                                <img src={robosub} className="border border-dark w-100 " alt="" style={{ height: '81%' }} />
-                            </Link>
-                            <p className="auv-description-primary text-center">Participated in Robosub-2021. Secured 3rd position in Website
-                                category, 4th and 6th in Skills Video category and 16th in TDR category.</p>
-                        </Col>
-                        <Col sm="12" lg="4" className="text-center">
-                            <Row>
-                                <Col sm="12" className="text-center">
-                                    <h3 className="small-heading" />
-                                    <img src={niot} className="border border-dark w-100 " alt="" />
-                                    <p className="auv-description-primary text-center">Twice Runners’ Up (2017 & 2019) at the NIOT SAVe, organised by the
-                                        National Insitute Of Ocean Technology, Chennai.</p>
-                                </Col>
-                                <Col sm="12" className="text-center">
-                                    <h3 className="small-heading" />
-                                    <img src={paper} className="w-100" alt="" />
-                                    <p className="auv-description-primary text-center">Published a paper at IEEE OES Symposium 2018, on design and
-                                        development of an open frame AUV: Anahita (Our 2nd Gen Vehicle)</p>
-                                </Col>
-                            </Row>
-
-                        </Col>
-
-                        {/* <Col sm="12" lg="4" className="text-center">
-                            <h3 className="small-heading" />
-                            <img src={niot} className="border border-dark w-100 " alt="" />
-                            <p className="auv-description-primary text-center">Twice Runners’ Up (2017 & 2019) at the NIOT SAVe, organised by the
-                                National Insitute Of Ocean Technology, Chennai.</p>
-                        </Col> */}
-
-                    </div>
-
-                </Container>
-            </div>
-
-        </>
-    )
+        <div className="lm-achv__grid">
+          {MILESTONES.map((m) => (
+            <Link to={m.link} className="lm-achv__card" key={m.title}>
+              <div className="lm-achv__media">
+                <img src={m.img} alt={m.title} />
+                <span className="lm-achv__year">{m.year}</span>
+              </div>
+              <div className="lm-achv__body">
+                <h3 className="lm-achv__title">{m.title}</h3>
+                <p className="lm-body">{m.desc}</p>
+              </div>
+            </Link>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
 }
 
-export default Posts
+export default Achievements;

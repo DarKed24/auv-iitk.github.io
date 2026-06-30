@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/static/css/main.e343a892.css",
-    "main.js": "/static/js/main.020d2f8e.js",
+    "main.css": "/static/css/main.187245e0.css",
+    "main.js": "/static/js/main.4925d692.js",
     "static/media/SnT Techkriti Poster redifined.png": "/static/media/SnT Techkriti Poster redifined.1006250e0a8972df1529.png",
     "static/media/team_2025.zip": "/static/media/team_2025.e268138fe82bfbe3ba89.zip",
     "static/media/niotwinner.jpeg": "/static/media/niotwinner.9cc977363d7b4be14b73.jpeg",
@@ -329,11 +329,11 @@
     "static/media/hydrophones.jfif": "/static/media/hydrophones.b2fbffa70c8c3d706f29.jfif",
     "static/media/revicons.woff": "/static/media/revicons.e8746a624ed098489406.woff",
     "index.html": "/index.html",
-    "main.e343a892.css.map": "/static/css/main.e343a892.css.map",
-    "main.020d2f8e.js.map": "/static/js/main.020d2f8e.js.map"
+    "main.187245e0.css.map": "/static/css/main.187245e0.css.map",
+    "main.4925d692.js.map": "/static/js/main.4925d692.js.map"
   },
   "entrypoints": [
-    "static/css/main.e343a892.css",
-    "static/js/main.020d2f8e.js"
+    "static/css/main.187245e0.css",
+    "static/js/main.4925d692.js"
   ]
 }
