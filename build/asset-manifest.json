@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/static/css/main.3111d8f2.css",
-    "main.js": "/static/js/main.8c37c734.js",
+    "main.css": "/static/css/main.e343a892.css",
+    "main.js": "/static/js/main.020d2f8e.js",
     "static/media/SnT Techkriti Poster redifined.png": "/static/media/SnT Techkriti Poster redifined.1006250e0a8972df1529.png",
     "static/media/team_2025.zip": "/static/media/team_2025.e268138fe82bfbe3ba89.zip",
     "static/media/niotwinner.jpeg": "/static/media/niotwinner.9cc977363d7b4be14b73.jpeg",
@@ -20,7 +20,7 @@
     "static/media/training2025.png": "/static/media/training2025.0a74a5c23eb7c7c3422b.png",
     "static/media/shibhanshd.jpeg": "/static/media/shibhanshd.c94aeff167c8a806811e.jpeg",
     "static/media/robosub.jpg": "/static/media/robosub.970df215729e89983cc5.jpg",
-    "static/media/atal.jpg": "/static/media/atal.1b2043a1ca84729b687c.jpg",
+    "static/media/Atal.jpg": "/static/media/Atal.1b2043a1ca84729b687c.jpg",
     "static/media/softwaretransparent.jpg": "/static/media/softwaretransparent.06aaaaa96210a560ac6e.jpg",
     "static/media/drop-header2.png": "/static/media/drop-header2.d082d38ae4c39a4a343d.png",
     "static/media/SarathK.jpeg": "/static/media/SarathK.4531d455e9fdf47be531.jpeg",
@@ -329,11 +329,11 @@
     "static/media/hydrophones.jfif": "/static/media/hydrophones.b2fbffa70c8c3d706f29.jfif",
     "static/media/revicons.woff": "/static/media/revicons.e8746a624ed098489406.woff",
     "index.html": "/index.html",
-    "main.3111d8f2.css.map": "/static/css/main.3111d8f2.css.map",
-    "main.8c37c734.js.map": "/static/js/main.8c37c734.js.map"
+    "main.e343a892.css.map": "/static/css/main.e343a892.css.map",
+    "main.020d2f8e.js.map": "/static/js/main.020d2f8e.js.map"
   },
   "entrypoints": [
-    "static/css/main.3111d8f2.css",
-    "static/js/main.8c37c734.js"
+    "static/css/main.e343a892.css",
+    "static/js/main.020d2f8e.js"
   ]
 }

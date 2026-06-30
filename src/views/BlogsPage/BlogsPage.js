@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { useState, useEffect } from "react";
 // reactstrap components
 import { Container, Row, Spinner } from "reactstrap";
 
@@ -6,72 +6,53 @@ import { Container, Row, Spinner } from "reactstrap";
 import ExamplesNavbar from "../../components/Navbars/ExamplesNavbar";
 import blogsData from "../../data/Blogs.json";
 import Blog from "./components/Blog";
-class BlogsPage extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      blogs: 0,
-      blogsArray: [],
-      loading: "false",
-    };
-  }
-  // React.useEffect(() => {
 
-  // });
-  componentDidMount() {
+function BlogsPage() {
+  const [blogsArray, setBlogsArray] = useState([]);
+  const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
     document.documentElement.classList.remove("nav-open");
-    // document.body.classList.add("profile-page");
-    // return function cleanup() {
-    //   document.body.classList.remove("profile-page");
-    // };
-    this.setState({ loading: "true" });
-    this.setState({ blogsArray: blogsData.blogsData });
-    this.setState({ loading: "false" });
-    // // console.log(this.state.blogsArray);
-    // // console.log(blogsData.blogsData);
-  }
+    setLoading(true);
+    setBlogsArray(blogsData.blogsData);
+    setLoading(false);
+  }, []);
 
-  render() {
-    // console.log(this.state.blogsArray);
-    const blogList = this.state.blogsArray.map((recievedBlog) => {
-      return (
-        // <h1>{recievedBlog.heading}</h1>
-        <div key={recievedBlog.heading}>
-          <Blog
-            heading={recievedBlog.heading}
-            author={recievedBlog.author}
-            date={recievedBlog.date}
-            bannerImage={recievedBlog.bannerImage}
-            abstract={recievedBlog.abstract}
-            id={recievedBlog.blogId}
-          ></Blog>
-        </div>
-      );
-    });
-
-    // // console.log(this.state.laoding)
-
-    const display =
-      this.state.loading === "true" ? (
-        <Spinner className="blogs-page-spinner" />
-      ) : (
-        blogList
-      );
+  const blogList = blogsArray.map((receivedBlog) => {
     return (
-      <>
-        <ExamplesNavbar activePage="/blogs" />
-        <div className="section text-center ">
-          <Container className="reduce-margin">
-            <Row>
-              <h2 className="heading-main" style={{ fontSize: "4.3rem" }}>BLOGS</h2>
-            </Row>
-          </Container>
-        </div>
-
-        <div className="main">{display}</div>
-      </>
+      <div key={receivedBlog.heading}>
+        <Blog
+          heading={receivedBlog.heading}
+          author={receivedBlog.author}
+          date={receivedBlog.date}
+          bannerImage={receivedBlog.bannerImage}
+          abstract={receivedBlog.abstract}
+          id={receivedBlog.blogId}
+        />
+      </div>
     );
-  }
+  });
+
+  const display = loading ? (
+    <Spinner className="blogs-page-spinner" />
+  ) : (
+    blogList
+  );
+
+  return (
+    <>
+      <ExamplesNavbar activePage="/blogs" />
+      <div className="section text-center ">
+        <Container className="reduce-margin">
+          <Row>
+            <h2 className="heading-main" style={{ fontSize: "4.3rem" }}>BLOGS</h2>
+          </Row>
+        </Container>
+      </div>
+
+      <div className="main">{display}</div>
+    </>
+  );
 }
 
 export default BlogsPage;
