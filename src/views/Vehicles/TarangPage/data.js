@@ -1,6 +1,18 @@
 const data = {
     "brief" : "Tarang is our third Autonomous Underwater Vehicle. Tarang has a robust, leak-proof and lightweight central hull made from carbon fiber. It has sensors like IMU, DVL and cameras on-board and can efficiently perform tasks like torpedo shooting, localization in an unknown underwater environment and complex space-constrained manoeuvres. In addition, it has improved battery and additional safety mechanisms installed to prevent damage.Tarang will participate in RoboSub-2021 held online due to the ongoing pandemic.",
 
+    "intro": {
+        "mechanical": [
+            "Although the design of our previous AUV, Anahita, was acknowledged worldwide, it still had a few flaws. The design involved multiple hulls, leading to high susceptibility to leakages, often damaging the electronic components during pool testing. In addition, multiple hulls and casings limited the accessibility of the internal components, and the positioning of hulls produced relatively high hydrodynamic drag during motion. Finally, the heat dissipation was poor as acrylic is an inferior conductor of heat, resulting in performance degradation and often rendering electronic components inoperable. We tried improving these aspects while designing our new bot."
+        ],
+        "electrical": [
+            "Tarang's electrical system includes power sources, sensors, actuators and all the computational resources required for autonomous underwater tasks. We have designed our own PCBs for multiple purposes. This year, we have designed a dedicated **power board** for power monitoring and distribution to all components. The power system includes a **custom buck and boost converter** designed to our specifications and requirements with the flexibility of placement and connections. We have also built a **custom microcontroller board** for Tarang instead of using Arduino boards with shields, saving a lot of PCB space and cost. The previous microcontroller board (a shield to Arduino Mega) was huge due to unnecessary GPIO pins unused by the Arduino. We use two ESC boards with four ESCs on each board, of which one ESC on each board is a backup in case of failure. There are two layers of stacks inside the hull, which are used for mounting different electronic devices."
+        ],
+        "software": [
+            "We have improved the software architecture to make the code modular, making it easier to test, debug and integrate. In addition, we have made significant advancements in our Simultaneous Localization and Mapping (SLAM) strategy, tuning of the controller and vision algorithms. The software stack uses the Robot Operating System (ROS Noetic) framework by Willow Garage, which works on Ubuntu 20.04 and acts as the communication middleware between all the processes running on the robot. We have migrated our code from Python 2 (which has been deprecated) to Python 3, and updated the code for our previous vehicles to use the latest versions of third-party libraries like OpenCV, YOLO and other ROS packages."
+        ]
+    },
+
     "specsTable" : [
         {
             "name": "Weight (in air)",
@@ -60,6 +72,7 @@ const data = {
         {
             "id":4,
             "title": "Marker Dropper",
+            "imgSize": "sm",
             "content": "We have changed the design of the marker dropper from our previous vehicles. The previous design had several disadvantages like high precision requirement during manufacturing and tricky reloading procedure. It was also difficult to mount on the vehicle. The new design is much simpler, more accurate and more reliable. It will have two markers(golf balls) hydrodynamically designed to fall straight down once they are released. The marker dropper is located near the camera to minimize the errors due to frame transformations. It consists of a star shaped obstructor preventing the marker (golf balls from falling). Once a trigger signal is received, the servo actuated star-shaped obstructor rotates and allows the markers to fall.",
             "img": "md working2.PNG",
             "imgDesc": "Marker Dropper Mechanism"
@@ -88,6 +101,58 @@ const data = {
 
     ],
     "electrical": [
+        {
+                "id": 42,
+                "title": "Power Distribution",
+                "blocks": [
+                        {
+                                "type": "p",
+                                "text": "We use two 14.8V 18Ah batteries to power the complete system. One battery is wholly dedicated to the thrusters, which have high power consumption, and cameras with low power consumption, ensuring the supply voltage remains within the battery voltage range. The other battery powers all the remaining electronics by generating 12V and 19V using high-efficiency buck and boost converters, respectively. The microcontroller on the power board features a display and multiple LED indicators for battery monitoring and threat alarming."
+                        },
+                        {
+                                "type": "h",
+                                "text": "Custom made Boost Converter"
+                        },
+                        {
+                                "type": "p",
+                                "text": "The custom boost converter powers the onboard computer, which operates at 19V. As the power rating for the computer is high (54W), the boost converter had to be very efficient, as the computer remains powered on for the entire duration of the mission."
+                        },
+                        {
+                                "type": "img",
+                                "src": "boost_render.png",
+                                "caption": "Boost Converter",
+                                "size": "sm"
+                        },
+                        {
+                                "type": "h",
+                                "text": "Custom made Buck Converter"
+                        },
+                        {
+                                "type": "p",
+                                "text": "Most of the low-power electronics are powered through the custom-designed buck converter, which outputs 12V. We ensured high efficiency in the buck to minimize power losses. The power is controlled through the buck converter using microcontroller GPIO, enabling us to completely turn it off and save power."
+                        },
+                        {
+                                "type": "img",
+                                "src": "buck_render.png",
+                                "caption": "Buck Converter",
+                                "size": "sm"
+                        },
+                        {
+                                "type": "h",
+                                "text": "5V power supply for servo"
+                        },
+                        {
+                                "type": "p",
+                                "text": "The 5V power supply required for driving the servos is created through a regulator using the 12V input from the buck. The power losses of the regulator are insignificant, as it is turned on only for the duration of servo usage. This saves a lot of space and cost that would be spent on making or using another buck converter. We used the RP2040 microcontroller module on the power board to build a robust and compact solution while getting sufficient GPIOs for sensors and other peripherals."
+                        },
+                        {
+                                "type": "img",
+                                "src": "electrical_architecture.jpg",
+                                "caption": "Tarang's Electrical Architecture",
+                                "size": "lg"
+                        }
+                ]
+        },
         {
             "id":1,
             "title": "Kill Switch and Safety Mechanisms",
@@ -123,6 +188,88 @@ const data = {
         }
     ],
     "software": [
+        {
+                "id": 42,
+                "title": "Software Architecture",
+                "blocks": [
+                        {
+                                "type": "p",
+                                "text": "The software stack of Tarang consists of dedicated layers for hardware integration, controls, navigation, motion planning and acoustic localization. The software stack consists of the following layers:"
+                        },
+                        {
+                                "type": "ol",
+                                "items": [
+                                        "**Master Layer:** It controls and coordinates the actions of all other layers to perform the tasks autonomously. All the decision making and strategy gets coded in the master layer, which commands the nodes in the other layers to perform different functions. The master layer contains the task-specific code. The signals and instructions for completing all the tasks originate from the master layer.",
+                                        "**Control Layer:** It contains the implementation of the cascaded PID controller the bot uses. The control layer calculates the thrust for each of the thrusters to manoeuvre the bot as desired. It also generates the trajectory and waypoints to perform the wanted task.",
+                                        "**Navigation Layer:** It contains the code for the Simultaneous Localization and Mapping (SLAM) algorithm. It performs sensor fusion, estimates the bot's current position in the world, and generates the world's map based upon the filtered sensor information.",
+                                        "**Vision Layer:** It contains the code for all the image processing and vision-related tasks. The vision layer receives the feed directly from the cameras, performs computation on the received data for preprocessing, object detection or visual odometry and sends the processed output to other nodes which require it.",
+                                        "**Hardware Layer:** It is responsible for integrating sensors with the software stack. It collects the sensors-specific plugins and utilities to receive information from the sensors and publishes it on topics for the other nodes to use."
+                                ]
+                        },
+                        {
+                                "type": "p",
+                                "text": "Advantages of such a software architecture are:"
+                        },
+                        {
+                                "type": "ol",
+                                "items": [
+                                        "It makes the development easier as different layers can be developed independently and tested asynchronously.",
+                                        "It enables easy debugging and troubleshooting.",
+                                        "It ensures that the code is scalable and maintainable and provides a straightforward way to integrate external libraries and expand the codebase."
+                                ]
+                        },
+                        {
+                                "type": "img",
+                                "src": "Software_Architecture.png",
+                                "caption": "Tarang's Software Architecture",
+                                "size": "lg"
+                        }
+                ]
+        },
+        {
+                "id": 43,
+                "title": "Image Pre-processing",
+                "blocks": [
+                        {
+                                "type": "h",
+                                "text": "Undistortion"
+                        },
+                        {
+                                "type": "p",
+                                "text": "We preprocess the video feed by applying multiple filters before extracting any information from it. Since the images are used to estimate the location of various objects and the vehicle itself, the lengths represented in the images must be true. The camera distorts the features in the image changing their shape and length, so images are undistorted in the preprocessing pipeline. To undistort images, we need to have distortion coefficients of the camera. To obtain these, we need to calibrate the camera using images of known size and shape. In our case, a checkerboard pattern with distortion known beforehand was used to calculate these coefficients."
+                        },
+                        {
+                                "type": "h",
+                                "text": "Relative Global Histogram Stretching"
+                        },
+                        {
+                                "type": "p",
+                                "text": "The Relative Global Histogram Stretching method aims to improve image quality by applying contrast correction and colour correction to the camera output."
+                        },
+                        {
+                                "type": "h",
+                                "text": "Contrast Correction"
+                        },
+                        {
+                                "type": "p",
+                                "text": "The contrast correction pipeline applies colour equalization on the image's green-blue (G-B) channels, followed by relative global histogram stretching."
+                        },
+                        {
+                                "type": "h",
+                                "text": "Bilateral Filter"
+                        },
+                        {
+                                "type": "p",
+                                "text": "A bilateral filter reduces the noise by using a non-linear smoothing filter on the image. The contrast-corrected image is then passed to the colour correction phase, which converts the image to CIE-Lab colour space and stretches the L, a and b components, followed by CIE-Lab to RGB conversion."
+                        },
+                        {
+                                "type": "img",
+                                "src": "processing_combined.png",
+                                "caption": "Image before preprocessing vs. image after preprocessing",
+                                "size": "md"
+                        }
+                ]
+        },
         {
             "id":1,
             "title": "Control System",

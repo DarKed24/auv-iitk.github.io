@@ -1,49 +1,89 @@
-.heading-contact-us {
-  font-family: var(--font-heading);
-  font-weight: 700;
-  font-size: 5.5 rem;
-  color: var(--color-primary);
-  margin: 3rem auto;
+/* Contact page */
+.contact-grid {
+  display: grid;
+  grid-template-columns: 1.2fr 0.8fr;
+  gap: 3rem;
+  align-items: start;
 }
-
-.heading-small-contact-us {
-  align-self: center;
-  justify-self: center;
-  font-family: var(--font-primary);
-  color: var(--color-primary);
-  font-size: 2.6rem;
+.contact-grid > *,
+.contact-side > * {
+  min-width: 0;
 }
-
-.contact-us-form-container {
-  padding: 2rem 4rem;
+.contact-grid .fade-in-section {
+  height: 100%;
 }
-
-.contact-us-section {
-  box-shadow: 5px 5px 20px rgba(0, 0, 0, 0.2);
-  padding: 3rem 5rem;
+.contact-form__foot {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 2rem;
+  margin-top: 0.6rem;
 }
-
-.contact-icon {
-  font-size: 3rem;
-  transform: translateY(15px);
-  margin-top: 10px;
+.contact-side {
+  display: flex;
+  flex-direction: column;
+  gap: 3rem;
 }
-
-.contact-us-form-button {
+.contact-list {
+  list-style: none;
+  margin: 0 0 2.4rem;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+.contact-list li {
+  display: flex;
+  gap: 1.6rem;
+  align-items: flex-start;
+}
+.contact-list__icon {
+  flex: 0 0 auto;
+  width: 4.6rem;
+  height: 4.6rem;
+  font-size: 1.9rem;
+  margin-bottom: 0;
+}
+.contact-list__label {
   display: block;
-  width: 12rem;
-  text-align: center;
-  font-family: var(--font-heading);
-  font-weight: 700;
-  color: var(--color-white);
-  padding: 1rem 2rem;
-  margin-top: 2rem;
-  background-color: var(--color-primary);
-  transition: all 0.5s;
+  font-family: var(--font-body-modern);
+  font-size: 1.2rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--accent-aqua);
+  margin-bottom: 0.3rem;
+}
+.contact-list a,
+.contact-list__value {
+  font-family: var(--font-body-modern);
+  font-size: 1.55rem;
+  line-height: 1.6;
+  color: var(--ocean-text);
+  word-break: break-word;
+}
+.contact-list a:hover {
+  color: var(--accent-cyan);
+  text-decoration: none;
+}
+.contact-socials {
+  display: flex;
+  gap: 1rem;
+}
+.contact-map {
+  aspect-ratio: 4 / 3;
+  min-height: 28rem;
+}
+.contact-map iframe {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+  filter: saturate(0.85) contrast(1.05);
 }
 
-.desc-auv {
-  color: var(--color-primary-light);
-  font-weight: 500;
-  font-size: 2rem;
+@media (max-width: 900px) {
+  .contact-grid {
+    grid-template-columns: 1fr;
+  }
 }

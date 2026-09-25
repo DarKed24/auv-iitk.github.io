@@ -1,6 +1,18 @@
 const data = {
     "brief" : "Anahita is an improvement over AUV-IITK’s previous vehicle Varun in terms of its modularity, robustness, ease of manufacturing and assembly. The vehicle is designed to perform complex spaceconstrained tasks and at the same time, not compromising on the maneuverability. Anahita participated in RoboSub-2019, San Diego and was the first runner up at NIOT-SAVe, 2019.",
 
+    "intro": {
+        "mechanical": [
+            "The mechanical subsystem is responsible for the design and manufacture of the vehicle. Anahita's mechanical system consists of the vehicle's frame, grabber, marker dropper, torpedo, connectors and penetrators. The mechanical design of Anahita is more modular, easier to assemble and more robust than its predecessor Varun. Furthermore, the addition of interchangeable components and task-specific parts increases the vehicle's modularity significantly."
+        ],
+        "electrical": [
+            "The electrical system in Anahita acts as an interface between the mechanical structure and the software logic. It is designed to provide power, drive actuators and interface with the various sensors installed in the robot. Major improvements over Varun's electrical system are the custom-made PCBs designed to suit the specific needs of Anahita."
+        ],
+        "software": [
+            "The software stack of Anahita consists of dedicated layers for hardware integration, controls and navigation, motion planning, perception and acoustic localization. It is built over the Robot Operating System (ROS) framework by Willow Garage, which acts as a communication middleware between all processes running on the robot."
+        ]
+    },
+
     "specsTable" : [
         {
             "name": "Weight (in air)",
@@ -145,6 +157,32 @@ const data = {
         }
     ],
     "software": [
+        {
+                "id": 100,
+                "title": "Architecture",
+                "blocks": [
+                        {
+                                "type": "p",
+                                "text": "In order to make the code modular, it is divided into five layers:"
+                        },
+                        {
+                                "type": "ol",
+                                "items": [
+                                        "**Master Layer:** The master layer is responsible for initiating each process. It instructs the task handler layer to execute the node sequence in which the task has to be performed.",
+                                        "**Task Handler Layer:** This layer has task-specific code written for each task and uses a motion library to achieve the target.",
+                                        "**Motion Library:** This layer assists the task handler layer to achieve a goal. It consists of six PID control loops for six degrees of freedom.",
+                                        "**Vision Layer:** The vision layer is responsible for providing information about the mission elements present in the arena. It detects the targets from the raw camera image and provides the coordinates of the vehicle to the task handler layer.",
+                                        "**Hardware Layer:** This layer is responsible for integrating sensors with the software stack. It collects all the information from the sensors and advertises it over topics from where any node that needs it can take it. The design is independent and extendable, so the software can scale with the tasks or missions to accomplish."
+                                ]
+                        },
+                        {
+                                "type": "img",
+                                "src": "AnahitaSoft.jpg",
+                                "caption": "Software data & control flow",
+                                "size": "lg"
+                        }
+                ]
+        },
         {
             "id":1,
             "title": "Controls",

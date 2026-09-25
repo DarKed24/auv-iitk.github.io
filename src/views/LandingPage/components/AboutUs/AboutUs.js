@@ -1,7 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import atalpic from "assets/img/atal/atal2026.jpeg";
 import { Link } from "react-router-dom";
-import "./AboutUs.css";
 
 /* Counts up to `end` once the element scrolls into view. */
 function CountUp({ end, suffix = "", duration = 1700 }) {
@@ -72,7 +71,7 @@ function TiltCard({ children }) {
   );
 }
 
-function AboutUs() {
+function AboutUs({ showStoryLink = true }) {
   return (
     <section className="lm-about">
       <div className="lm-container">
@@ -94,10 +93,12 @@ function AboutUs() {
               environments, performing acoustic localization, and identifying
               objects through computer vision.
             </p>
-            <Link to="/about-us" className="lm-link-btn">
-              Our Full Story
-              <span className="lm-link-btn__arrow">→</span>
-            </Link>
+            {showStoryLink && (
+              <Link to="/about-us" className="lm-link-btn">
+                Our Full Story
+                <span className="lm-link-btn__arrow">→</span>
+              </Link>
+            )}
           </div>
 
           <TiltCard>

@@ -1,40 +1,31 @@
 import React from "react";
-import { Col, Row } from "reactstrap";
-import "./Blog.css";
 import { Link } from "react-router-dom";
+import { img } from "components/UI/RichText";
+import "./Blog.css";
 
-/* eslint-disable react/prop-types */
-function Blog(props) {
-  const topath = "/blogs/" + props.id;
-  
+function Blog({ blog }) {
   return (
-    <>
-      <div className="section blog-card">
-        <div className="blog-content">
-          <h1 className="blog-heading" style={{ fontSize: "3.4rem" }}>{props.heading}</h1>
-          <div className="subheading-container">
-            <h3 className="blog-author" style={{ fontSize: "1.8rem" }}>{props.author}</h3>
-            <h3 className="blog-date" style={{ fontSize: "1.8rem" }}>{props.date}</h3>
-          </div>
-          <Row>
-            <Col lg="6">
-              <img
-                src={require("assets/img/blog/BlogImages/" + props.bannerImage)}
-                className="blog-banner-image"
-              ></img>
-            </Col>
-            <Col style={{ display: "flex" }} lg="6">
-              <p className="blogs-description">
-                {props.abstract}
-                <Link to={topath} className="blogs-more-button">
-                  Read More
-                </Link>
-              </p>
-            </Col>
-          </Row>
-        </div>
+    <Link to={`/blogs/${blog.blogId}`} className="oc-card oc-card--hover oc-card--link blog-card">
+      <div className="blog-card__media">
+        <img src={img(`blog/BlogImages/${blog.bannerImage}`)} alt="" loading="lazy" />
       </div>
-    </>
+      <div className="blog-card__body">
+        <div className="blog-card__meta">
+          <span>
+            <i className="fa fa-user-o" aria-hidden="true" /> {blog.author}
+          </span>
+          <span>
+            <i className="fa fa-calendar-o" aria-hidden="true" /> {blog.date}
+          </span>
+        </div>
+        <h2 className="blog-card__title">{blog.heading}</h2>
+        <p className="lm-body blog-card__abstract">{blog.abstract}</p>
+        <span className="lm-link-btn">
+          Read article
+          <span className="lm-link-btn__arrow">→</span>
+        </span>
+      </div>
+    </Link>
   );
 }
 
