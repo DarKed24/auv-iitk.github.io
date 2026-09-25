@@ -1,75 +1,62 @@
-/*!
-
-=========================================================
-* Paper Kit React - v1.0.0
-=========================================================
-
-* Product Page: https://www.creative-tim.com/product/paper-kit-react
-
-* Copyright 2019 Creative Tim (https://www.creative-tim.com)
-* Licensed under MIT (https://github.com/creativetimofficial/paper-kit-react/blob/master/LICENSE.md)
-
-* Coded by Creative Tim
-
-=========================================================
-
-* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-
-*/
 import React from "react";
-// reactstrap components
-// import {
-//     Button,
-//     Card,
-//     CardBody,
-//     CardFooter,
-//     CardTitle,
-//     Form,
-//     Input,
-//     InputGroupAddon,
-//     InputGroupText,
-//     InputGroup,
-//     Container,
-//     Row,
-//     Col
-// } from "reactstrap";
-
-import ExamplesNavbar from "../../components/Navbars/ExamplesNavbar";
-
-// core components
-import TeamVideo from "./components/TeamVideo/TeamVideo";
-import LegacyCarousel from "./components/LegacyCarousel/LegacyCarousel";
-import TeamHeads from "./components/TeamHeads/TeamHeads";
-import SubS from "./components/Subsystems/Subsystem";
-
+import PageShell from "components/Layout/PageShell";
+import PageHero from "components/Layout/PageHero";
+import JoinUs from "components/Sections/JoinUs";
 import FadeIn from "views/Animations/FadeIn";
-function LandingPage() {
-	document.documentElement.classList.remove("nav-open");
-	React.useEffect(() => {
-		document.body.classList.add("profile-page"); 
-		return function cleanup() {
-			document.body.classList.remove("profile-page");
-		};
-	});
-	return (
-		<div>
-			<ExamplesNavbar activePage="/team" />
-			<div className="main">
-				<FadeIn>
-					<TeamHeads />
-				</FadeIn>
-				<FadeIn>
-					<SubS />
-				</FadeIn>
-				<FadeIn>
-					<LegacyCarousel />
-				</FadeIn>
-				<FadeIn>
-					<TeamVideo />
-				</FadeIn>
-			</div>
-		</div>
-	);
+import teamphoto from "assets/img/DSC02829.jpg";
+
+import TeamIntro from "./components/TeamHeads/TeamHeads";
+import Subsystems from "./components/Subsystems/Subsystem";
+import LegacyRail from "./components/LegacyCarousel/LegacyCarousel";
+import TeamVideo from "./components/TeamVideo/TeamVideo";
+
+function TeamPage() {
+  return (
+    <PageShell title="Team">
+      <PageHero
+        kicker="The People"
+        title="Meet the crew"
+        lead="Students from every department of IIT Kanpur, bound by long nights, hard problems and a shared obsession with making a robot think for itself underwater."
+        image={teamphoto}
+        actions={
+          <>
+            <a href="#subsystems" className="lp-btn lp-btn--primary">
+              <span>Explore Subsystems</span>
+            </a>
+            <a href="#alumni" className="lp-btn lp-btn--ghost">
+              <span>Past Members</span>
+            </a>
+          </>
+        }
+      />
+
+      <FadeIn direction="up">
+        <TeamIntro />
+      </FadeIn>
+
+      <section id="subsystems">
+        <FadeIn direction="up">
+          <Subsystems />
+        </FadeIn>
+      </section>
+
+      <section id="alumni">
+        <FadeIn direction="up">
+          <LegacyRail />
+        </FadeIn>
+      </section>
+
+      <FadeIn direction="up">
+        <TeamVideo />
+      </FadeIn>
+
+      <JoinUs
+        kicker="Recruitment"
+        title="Want a seat on the crew?"
+        text="We recruit across mechanical, electrical, software and business every year. If you would rather build a submarine than read about one, we should talk."
+      />
+    </PageShell>
+  );
 }
 
-export default LandingPage;
+export default TeamPage;

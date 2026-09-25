@@ -1,40 +1,51 @@
-import React from 'react'
+import React from "react";
+import PageShell from "components/Layout/PageShell";
+import PageHero from "components/Layout/PageHero";
+import JoinUs from "components/Sections/JoinUs";
+import FadeIn from "views/Animations/FadeIn";
+import heroImg from "assets/img/backgrounds/hdunderwater.jpg";
 
-import ExamplesNavbar from '../../components/Navbars/ExamplesNavbar'
+import AboutUs from "views/LandingPage/components/AboutUs/AboutUs";
+import Participation from "./components/Participation/Participation";
+import Journey from "./components/Journey/Journey";
+import Pillars from "./components/Achievements/Achievements";
 
-// core components
-import AboutUs from '../LandingPage/components/AboutUs/AboutUs.js'
-import Participation from './components/Participation/Participation'
-import Achievements from './components/Achievements/Achievements'
-import './AboutUsPage.css'
-
-import FadeIn from 'views/Animations/FadeIn'
-
-function LandingPage () {
-  document.documentElement.classList.remove('nav-open')
-  React.useEffect(() => {
-    window.scrollTo(0, 0)
-    document.body.classList.add('profile-page')
-    return function cleanup () {
-      document.body.classList.remove('profile-page')
-    }
-  })
+function AboutUsPage() {
   return (
-        <div className="mobile-responsive">
-            <ExamplesNavbar activePage="/about-us"/>
-            <div className="main ">
-              <FadeIn>
-                <AboutUs setMore="true"/>
-              </FadeIn>
-              <FadeIn>
-                <Participation/>
-              </FadeIn>
-              <FadeIn>
-                <Achievements/>
-              </FadeIn>
-            </div>
-        </div>
-  )
+    <PageShell title="About Us">
+      <PageHero
+        kicker="About Us"
+        title="A dive into the unfathomable"
+        lead="Team AUV-IITK is a student-run research group at IIT Kanpur that designs, builds and deploys autonomous underwater vehicles — from the first weld to the final mission run."
+        image={heroImg}
+        meta={
+          <>
+            <span className="oc-chip"><i className="fa fa-calendar" aria-hidden="true" /> Est. 2014</span>
+            <span className="oc-chip"><i className="fa fa-users" aria-hidden="true" /> 25+ members</span>
+            <span className="oc-chip"><i className="fa fa-ship" aria-hidden="true" /> 3 vehicles built</span>
+          </>
+        }
+      />
+
+      <FadeIn direction="up">
+        <AboutUs showStoryLink={false} />
+      </FadeIn>
+
+      <FadeIn direction="up">
+        <Participation />
+      </FadeIn>
+
+      <FadeIn direction="up">
+        <Journey />
+      </FadeIn>
+
+      <FadeIn direction="up">
+        <Pillars />
+      </FadeIn>
+
+      <JoinUs />
+    </PageShell>
+  );
 }
 
-export default LandingPage
+export default AboutUsPage;

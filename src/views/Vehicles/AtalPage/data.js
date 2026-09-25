@@ -1,6 +1,20 @@
 const data = {
     "brief" : "Atal is our third-generation Autonomous Underwater Vehicle (AUV), designed with cutting-edge advancements for robust underwater operations. It features a lightweight yet durable central hull constructed from aluminum, ensuring both structural integrity and complete water resistance under pressure. It is equipped with sensors—including an Inertial Measurement Unit (IMU), Doppler Velocity Log (DVL), and high-resolution cameras. Atal is capable of executing a wide range of complex tasks such as precision torpedo deployment, object pickup and drop, real-time localization in unfamiliar underwater environments, and complex space-constrained manoeuvres. Atal is equipped with a high-capacity battery system and integrated with advanced safety protocols. Atal is set to participate in RoboSub 2026.",
 
+    "intro": {
+        "mechanical": [
+            "While the design of our previous AUV, Anahita, received international recognition, it exhibited several critical limitations. The use of multiple hulls increased the risk of leakages, which frequently led to damage of sensitive electronic components during pool testing. Additionally, the segmented hull structure and numerous casings significantly restricted access to internal systems, complicating maintenance and rapid intervention. The hull configuration also contributed to increased hydrodynamic drag, negatively impacting maneuverability and overall efficiency. Furthermore, the use of acrylic — a poor thermal conductor — resulted in inadequate heat dissipation, leading to performance degradation and, at times, failure of essential electronics. These challenges informed and inspired the improvements implemented in the design of our new AUV, **Atal**."
+        ],
+        "electrical": [
+            "Atal's electrical system comprises power sources, sensors, actuators, and all the computational hardware required to execute autonomous underwater missions. This year, we have developed custom PCBs tailored for various subsystems. A notable addition is a dedicated **power management board**, which handles real-time power monitoring and efficient distribution to all modules. The power system incorporates **custom-designed buck** and **boost converters**, engineered to meet our specific voltage and current requirements, while maintaining flexibility in both layout and connectivity.",
+            "In place of traditional Arduino-based solutions, we have engineered a **custom microcontroller board**, replacing the bulky Arduino Mega + shield configuration. This redesign significantly reduces PCB footprint and cost, while eliminating unused GPIO overhead present in the previous design. The system **utilizes two ESC (Electronic Speed Controller) boards**, each managing eight ESCs, with one ESC per board configured as a backup for redundancy in case of failure. Internally, the hull features a **two-layer stacked architecture** for structured and modular mounting of electronic components."
+        ],
+        "software": [
+            "We have enhanced the software architecture to adopt a more modular design, significantly improving testability, debugging, and integration. Notable advancements have been made in our Simultaneous Localization and Mapping (SLAM) strategy, as well as in the tuning of controllers and optimization of vision algorithms. The software stack is built on the Robot Operating System (ROS) framework, originally using ROS Noetic by Willow Garage. It operates on Ubuntu 22.04 and serves as the communication middleware between various processes running on the robot.",
+            "Our entire codebase has now been successfully migrated from ROS 1 to ROS 2, allowing us to take advantage of ROS 2's improved performance, real-time capabilities, and better system architecture. Furthermore, we have updated the software for our previous vehicles to be compatible with the latest versions of essential third-party libraries, including OpenCV, YOLO, and other ROS packages."
+        ]
+    },
+
     "specsTable" : [
         {
             "name": "Weight (in air)",
@@ -39,6 +53,30 @@ const data = {
         }
     ],
     "mechanical": [
+        {
+                "id": 2000,
+                "title": "Main Hull",
+                "blocks": [
+                        {
+                                "type": "p",
+                                "text": "One of the most significant improvements in our current AUV design is the transition to a **single main hull architecture**. Constructed primarily from **aluminium**, the hull provides excellent strength and rigidity, ensuring structural integrity under pressure. This unified design greatly enhances system simplicity, reducing the need for multiple penetrators that were previously required for separate compartments. In earlier iterations, these penetrators were a major source of leakage issues, often making it difficult to locate and address faults."
+                        },
+                        {
+                                "type": "p",
+                                "text": "By consolidating components into a single hull, we can now perform leak tests more efficiently, often without even needing to submerge the vehicle. To improve accessibility and visual coverage, the main hull incorporates a dedicated camera dome with a **270-degree front-facing field of view**, designed in a circular form for optimal visibility."
+                        },
+                        {
+                                "type": "p",
+                                "text": "Additionally, the top face of the hull is made from **transparent acrylic**, enabling non-invasive visual inspection of internal electronics and fluid ingress points. This design choice allows the team to monitor for leakage, condensation, or circuit anomalies without opening the hull — significantly improving turnaround time during testing and deployment."
+                        },
+                        {
+                                "type": "img",
+                                "src": "atal_hull.jpeg",
+                                "caption": "A view of Atal's hull design",
+                                "size": "md"
+                        }
+                ]
+        },
         // {
         //     "id": 1,
         //     "title": "Main Hull",
@@ -70,6 +108,7 @@ const data = {
         {
             "id":3,
             "title": "Marker Dropper",
+            "imgSize": "sm",
             "content": "We've redesigned the marker dropper to overcome issues in the previous version, such as tight manufacturing tolerances, difficult reloading, and mounting challenges. The new mechanism is simpler, more reliable, and easier to integrate. It will have two markers (golf balls) hydrodynamically designed to fall straight down once they are released. The marker dropper is located near the camera to minimize the errors due to frame transformations. A servo-controlled star-shaped obstructor prevents the markers from dropping until triggered, at which point it rotates to release them.",
             "img": "md working2.PNG",
             "imgDesc": "Marker Dropper Mechanism"
@@ -98,6 +137,114 @@ const data = {
 
     ],
     "electrical": [
+        {
+                "id": 2001,
+                "title": "Power Distribution",
+                "blocks": [
+                        {
+                                "type": "p",
+                                "text": "We use two 14.8V 18Ah batteries to power the complete system. One battery is wholly dedicated to the thrusters, which have high power consumption, and cameras with low power consumption, ensuring the supply voltage remains within the battery voltage range. The other battery powers all the remaining electronics by generating 12V and 19V using high-efficiency buck and boost converters, respectively. The microcontroller on the power board features a display and multiple LED indicators for battery monitoring and threat alarming."
+                        },
+                        {
+                                "type": "h",
+                                "text": "Custom made Boost Converter"
+                        },
+                        {
+                                "type": "p",
+                                "text": "The custom boost converter powers the onboard computer, which operates at 19V. As the power rating for the computer is high (54W), the boost converter had to be very efficient, as the computer remains powered on for the entire duration of the mission."
+                        },
+                        {
+                                "type": "img",
+                                "src": "boost_render.png",
+                                "caption": "Boost Converter",
+                                "size": "sm"
+                        },
+                        {
+                                "type": "h",
+                                "text": "Custom made Buck Converter"
+                        },
+                        {
+                                "type": "p",
+                                "text": "Most of the low-power electronics are powered through the custom-designed buck converter, which outputs 12V. We ensured high efficiency in the buck to minimize power losses. The power is controlled through the buck converter using microcontroller GPIO, enabling us to completely turn it off and save power."
+                        },
+                        {
+                                "type": "img",
+                                "src": "buck_render.png",
+                                "caption": "Buck Converter",
+                                "size": "sm"
+                        },
+                        {
+                                "type": "h",
+                                "text": "5V power supply for servo"
+                        },
+                        {
+                                "type": "p",
+                                "text": "The 5V power supply required for driving the servos is created through a regulator using the 12V input from the buck. The power losses of the regulator are insignificant, as it is turned on only for the duration of servo usage. This saves a lot of space and cost that would be spent on making or using another buck converter. We used the RP2040 microcontroller module on the power board to build a robust and compact solution while getting sufficient GPIOs for sensors and other peripherals."
+                        },
+                        {
+                                "type": "img",
+                                "src": "electrical_architecture.jpg",
+                                "caption": "Atal's Electrical Architecture",
+                                "size": "lg"
+                        }
+                ]
+        },
+        {
+                "id": 2002,
+                "title": "Kill Switch and Safety Mechanisms",
+                "blocks": [
+                        {
+                                "type": "p",
+                                "text": "The power management board in the vehicle handles **undervoltage and overcurrent faults**. We use a **Hall effect current sensor (ACS-712)** to measure the current flowing through each battery and a **simple resistive voltage divider** for battery voltage measurement."
+                        },
+                        {
+                                "type": "p",
+                                "text": "The **Kill Switch mechanism** has been upgraded using a **PMOS**, with the gate voltage toggled through a **reed switch**. This provides a **connector-free interface** for the kill switch, ensuring improved waterproofing. The system includes **two kill switches** for redundancy and increased safety."
+                        },
+                        {
+                                "type": "p",
+                                "text": "The vehicle also features an **internal pressure sensor (BMP388)**, which is used to test for leakage before underwater deployment by measuring whether the hull maintains the applied relative drop in pressure. Additionally, the **temperature reading from the same BMP388** can be used to safely shut down ICs that lack a default thermal shutdown mechanism."
+                        }
+                ]
+        },
+        {
+                "id": 2003,
+                "title": "Sensor Integration and Computational Interface",
+                "blocks": [
+                        {
+                                "type": "p",
+                                "text": "Integration of industrial sensors and direct interfacing with the onboard computer enables robust and real-time state estimation. This year, we have upgraded to **iDS uEye industrial cameras** for improved color accuracy and enhanced focus capabilities. With the addition of a newly introduced **network switch**, the camera feed is now transferred directly to the GPU for object detection and recognition."
+                        },
+                        {
+                                "type": "p",
+                                "text": "The **external LAN** and the **onboard computer** now have direct control over both the cameras and the GPU. The newly designed **microcontroller board** has been optimized to significantly reduce its physical size by utilizing only the necessary GPIO pins. It also neatly organizes connectors for the **actuator**, **manipulator**, and several other peripherals."
+                        },
+                        {
+                                "type": "img",
+                                "src": "esc_render.png",
+                                "caption": "ESC Board",
+                                "size": "lg"
+                        }
+                ]
+        },
+        {
+                "id": 2004,
+                "title": "Onboard Computer",
+                "blocks": [
+                        {
+                                "type": "p",
+                                "text": "The onboard computer, an **Intel NUC** powered by an **Intel Core i7 processor**, handles **real-time image processing**, **object detection**, and all major computational tasks. It is powerful enough to run all necessary algorithms during the mission."
+                        },
+                        {
+                                "type": "p",
+                                "text": "The **Intel NUC** acts as the **central processing unit**, interfacing with all sensors and actuators either **directly** or **via the microcontroller** on the custom power board. This layered architecture ensures efficient task delegation and better system stability."
+                        },
+                        {
+                                "type": "p",
+                                "text": "The **new industrial camera** is now interfaced via **Ethernet**, replacing the earlier USB connection, resulting in improved data transfer speed and reliability."
+                        }
+                ]
+        },
         // {
         //     "id":1,
         //     "title": "Kill Switch and Safety Mechanisms",
@@ -133,6 +280,116 @@ const data = {
         }
     ],
     "software": [
+        {
+                "id": 2005,
+                "title": "Software Architecture",
+                "blocks": [
+                        {
+                                "type": "p",
+                                "text": "The software stack of Atal consists of dedicated layers for hardware integration, controls, navigation, motion planning and acoustic localization. The software stack consists of the following layers:"
+                        },
+                        {
+                                "type": "ol",
+                                "items": [
+                                        "**Master Layer:** It controls and coordinates the actions of all other layers to perform the tasks autonomously. All the decision making and strategy gets coded in the master layer, which commands the nodes in the other layers to perform different functions. The master layer contains the task-specific code. The signals and instructions for completing all the tasks originate from the master layer.",
+                                        "**Control Layer:** It contains the implementation of the cascaded PID controller the bot uses. The control layer calculates the thrust for each of the thrusters to manoeuvre the bot as desired. It also generates the trajectory and waypoints to perform the wanted task.",
+                                        "**Navigation Layer:** It contains the code for the Simultaneous Localization and Mapping (SLAM) algorithm. It performs sensor fusion, estimates the bot's current position in the world, and generates the world's map based upon the filtered sensor information.",
+                                        "**Vision Layer:** It contains the code for all the image processing and vision-related tasks. The vision layer receives the feed directly from the cameras, performs computation on the received data for preprocessing, object detection or visual odometry and sends the processed output to other nodes which require it.",
+                                        "**Hardware Layer:** It is responsible for integrating sensors with the software stack. It collects the sensors-specific plugins and utilities to receive information from the sensors and publishes it on topics for the other nodes to use."
+                                ]
+                        },
+                        {
+                                "type": "p",
+                                "text": "Advantages of such a software architecture are:"
+                        },
+                        {
+                                "type": "ol",
+                                "items": [
+                                        "It makes the development easier as different layers can be developed independently and tested asynchronously.",
+                                        "It enables easy debugging and troubleshooting.",
+                                        "It ensures that the code is scalable and maintainable and provides a straightforward way to integrate external libraries and expand the codebase."
+                                ]
+                        },
+                        {
+                                "type": "img",
+                                "src": "Software_Architecture.png",
+                                "caption": "Atal's Software Architecture",
+                                "size": "lg"
+                        }
+                ]
+        },
+        {
+                "id": 2006,
+                "title": "Image Pre-processing",
+                "blocks": [
+                        {
+                                "type": "h",
+                                "text": "Undistortion"
+                        },
+                        {
+                                "type": "p",
+                                "text": "We preprocess the video feed by applying multiple filters before extracting any information from it. Since the images are used to estimate the location of various objects and the vehicle itself, the lengths represented in the images must be true. The camera distorts the features in the image changing their shape and length, so images are undistorted in the preprocessing pipeline. To undistort images, we need to have distortion coefficients of the camera. To obtain these, we need to calibrate the camera using images of known size and shape. In our case, a checkerboard pattern with distortion known beforehand was used to calculate these coefficients."
+                        },
+                        {
+                                "type": "h",
+                                "text": "Relative Global Histogram Stretching"
+                        },
+                        {
+                                "type": "p",
+                                "text": "The Relative Global Histogram Stretching method aims to improve image quality by applying contrast correction and colour correction to the camera output."
+                        },
+                        {
+                                "type": "h",
+                                "text": "Contrast Correction"
+                        },
+                        {
+                                "type": "p",
+                                "text": "The contrast correction pipeline applies colour equalization on the image's green-blue (G-B) channels, followed by relative global histogram stretching."
+                        },
+                        {
+                                "type": "h",
+                                "text": "Bilateral Filter"
+                        },
+                        {
+                                "type": "p",
+                                "text": "A bilateral filter reduces the noise by using a non-linear smoothing filter on the image. The contrast-corrected image is then passed to the colour correction phase, which converts the image to CIE-Lab colour space and stretches the L, a and b components, followed by CIE-Lab to RGB conversion."
+                        },
+                        {
+                                "type": "img",
+                                "src": "processing_combined.png",
+                                "caption": "Image before preprocessing vs. image after preprocessing",
+                                "size": "md"
+                        }
+                ]
+        },
+        {
+                "id": 2007,
+                "title": "Control System",
+                "blocks": [
+                        {
+                                "type": "p",
+                                "text": "We have improved the control system in our new vehicle by performing **fine thruster calibrations** and implementing a **cascaded PID controller** for precise motion control. **Atal is fully actuated with eight thrusters**, providing **six degrees of freedom** to the vehicle. Each thruster is calibrated to map **thrust vs. PWM input pulse**, and these mappings are used to generate a **thruster allocation matrix** that distributes the output of the PID controller to the respective thrusters."
+                        },
+                        {
+                                "type": "p",
+                                "text": "Since each thruster contributes thrust primarily in a specific degree of freedom, the system remains **highly decoupled**, allowing the vehicle to execute **aggressive manoeuvres**. The decoupled architecture, combined with **independent position and velocity controllers**, allows us to **tune each PID loop independently**, improving control accuracy and responsiveness."
+                        },
+                        {
+                                "type": "p",
+                                "text": "We use a **cascaded PID controller** for improved motion tracking. It considers both **position and velocity errors** to compute thrust commands, enabling faster corrections while the velocity controller helps prevent overshoot. Given the vehicle's **lightweight design**, it responds quickly but is also more prone to **oscillations and overshoot** — hence, the PID parameters are carefully tuned for **damping** and controlled response."
+                        },
+                        {
+                                "type": "p",
+                                "text": "As a result, **Atal shows significantly better motion tracking** than our previous vehicle, Anahita, with **lower settling time, minimal overshoot**, and enhanced manoeuvrability. In addition to the current control architecture, we also plan to **experiment with Model Predictive Control (MPC)** and **fuzzy logic-based controllers** to explore more advanced and adaptive control strategies."
+                        },
+                        {
+                                "type": "img",
+                                "src": "Control Layer.png",
+                                "caption": "Atal's Control Layer",
+                                "size": "md"
+                        }
+                ]
+        },
         // {
         //     "id":1,
         //     "title": "Control System",

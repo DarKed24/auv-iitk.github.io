@@ -7,7 +7,6 @@ import dord from "assets/img/sponsors/dord-iitk.png";
 import sparton from "assets/img/sponsors/sparton.png";
 import xsens from "assets/img/sponsors/xsens.png";
 import ids from "assets/img/sponsors/ids.png";
-import "./Sponsors.css";
 
 const ROW_A = [
   { src: altium, alt: "Altium" },

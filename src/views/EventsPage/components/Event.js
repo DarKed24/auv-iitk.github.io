@@ -1,79 +1,61 @@
 import React from "react";
-import { Col, Container, Row } from "reactstrap";
 import "./Event.css";
-import FadeIn from "views/Animations/FadeIn";
-// import { Link } from "react-router-dom";
-function Event(props) {
+
+function InfoList({ icon, title, items }) {
+  if (!items || items.length === 0) return null;
   return (
-    <>
-      <FadeIn>
-        <div className="">
-          <Container>
-            <Row className="event-container">
-              <Col className="ml-auto mr-auto" md="12">
-                <a href={props.event.link} target="_blank" rel="noopener noreferrer">
-                  <h2 className="text-left comp-heading heading-main">
-                    {props.event.name}
-                  </h2>
-                </a>
-              </Col>
-              <Col md="8" className="event-image-container my-auto">
-                <img src={props.event.image} className="event-image" alt="" />
-              </Col>
-              <Col md="4" className="headings-container text-left my-auto">
-                <h1 className="small-heading primary-heading">
-                  {props.event.heading}
-                </h1>
-                <h2 className=" mt-3 small-heading-edited secondary-heading">
-                  {props.event.subheading}
-                </h2>
-                <h1 className="small-heading primary-heading">
-                  {props.event.heading02}
-                </h1>
-                {/* {(props.event.name !== "ROBOSUB") ?
-                  <h2 className=" mt-3 small-heading-edited secondary-heading">
-                  //  {props.event.subheading02}
-                  //</h2> : 
-                  <Link to='/vehicles/tarang' className="small-heading-edited tarang-link"> {props.event.subheading02}</Link>
-                } */}
-                <h2 className=" mt-3 small-heading-edited secondary-heading">
-                  {props.event.subheading08}
-                </h2>
-                <h2 className=" mt-3 small-heading-edited secondary-heading">
-                  {props.event.subheading02}
-                </h2>
-                <h2 className=" mt-3 small-heading-edited secondary-heading">
-                  {props.event.subheading03}
-                </h2>
-                <h2 className=" mt-3 small-heading-edited secondary-heading">
-                  {props.event.subheading04}
-                </h2>
-                <h1 className="small-heading primary-heading">
-                  {props.event.heading03}
-                </h1>
-                <h2 className=" mt-3 small-heading-edited secondary-heading">
-                  {props.event.subheading05}
-                </h2>
-                <h2 className=" mt-3 small-heading-edited secondary-heading">
-                  {props.event.subheading06}
-                </h2>
-                <h2 className=" mt-3 small-heading-edited secondary-heading">
-                  {props.event.subheading07}
-                </h2>
-              </Col>
-            </Row>
-            <Row>
-              <p className="ml-3 mt-5 text-left auv-description-primary ">
-                {props.event.para1}
-              </p>
-              <p className="ml-3 text-left auv-description-primary ">
-                {props.event.para2}
-              </p>
-            </Row>
-          </Container>
+    <div className="ev-info">
+      <h4 className="ev-info__title">
+        <i className={`fa ${icon}`} aria-hidden="true" /> {title}
+      </h4>
+      <ul className="ev-info__list">
+        {items.map((it) => (
+          <li key={it}>{it}</li>
+        ))}
+      </ul>
+    </div>
+  );
+}
+
+function Event({ event, reverse = false }) {
+  const id = `event-${event.name.toLowerCase().replace(/\s+/g, "-")}`;
+  return (
+    <section className="oc-section ev" id={id}>
+      <div className="lm-container">
+        <div className={`oc-split oc-split--even ${reverse ? "oc-split--rev" : ""}`}>
+          <a
+            href={event.link}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="oc-frame oc-frame--zoom ev__media"
+            aria-label={`${event.name} website`}
+          >
+            <img src={event.image} alt={event.name} loading="lazy" />
+            <span className="oc-badge oc-frame__badge">{event.organiser}</span>
+          </a>
+
+          <div>
+            <span className="lm-eyebrow">Competition</span>
+            <h2 className="lm-heading">
+              <a href={event.link} target="_blank" rel="noopener noreferrer" className="ev__title">
+                {event.name}
+                <i className="fa fa-external-link ev__ext" aria-hidden="true" />
+              </a>
+            </h2>
+            <span className="oc-chip ev__loc">
+              <i className="fa fa-map-marker" aria-hidden="true" /> {event.location}
+            </span>
+
+            <div className="ev__lists">
+              <InfoList icon="fa-flag" title="Our participation" items={event.participation} />
+              <InfoList icon="fa-trophy" title="Laurels" items={event.laurels} />
+            </div>
+          </div>
         </div>
-      </FadeIn>
-    </>
+
+        <p className="lm-body ev__desc">{event.description}</p>
+      </div>
+    </section>
   );
 }
 

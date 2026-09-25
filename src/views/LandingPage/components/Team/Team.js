@@ -1,7 +1,6 @@
 import React from "react";
 import teamphoto from "assets/img/DSC02829.jpg";
 import { Link } from "react-router-dom";
-import "./Team.css";
 
 function Team() {
   return (

@@ -1,30 +1,31 @@
 import React from "react";
-import "./TeamVideo.css";
-import {
+import SectionHeading from "components/UI/SectionHeading";
 
-  Container,
-
-} from "reactstrap";
-
-function TalkAbout() {
+function TeamVideo() {
   return (
-    <>
-      <div className="section text-center">
-        <Container>
-          <h2 className="title heading-main mb-5">Team Video</h2>
-          <div className="iframe-container">
-            <iframe
-              className="yt-video"
-              src="https://www.youtube.com/embed/2kunTvZ_zLI"
-              frameBorder="0"
-              allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
-              allowFullScreen
-            ></iframe>
-          </div>
-
-        </Container>
+    <section className="oc-section">
+      <div className="lm-container lm-container--narrow">
+        <SectionHeading
+          eyebrow="Watch"
+          title={
+            <>
+              Life in the <span className="lm-grad">AUV room</span>
+            </>
+          }
+          center
+        />
+        <div className="oc-frame oc-frame--video">
+          <iframe
+            src="https://www.youtube-nocookie.com/embed/2kunTvZ_zLI"
+            title="Team AUV-IITK video"
+            loading="lazy"
+            allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+            allowFullScreen
+          />
+        </div>
       </div>
-    </>
+    </section>
   );
 }
-export default TalkAbout;
+
+export default TeamVideo;

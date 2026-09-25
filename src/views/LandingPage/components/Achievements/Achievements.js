@@ -2,7 +2,6 @@ import React from "react";
 import paper from "../../../../assets/img/Achievements/mech-paper.jpg";
 import robosub from "../../../../assets/img/Achievements/robosub2021.jpeg";
 import niot from "../../../../assets/img/Achievements/niot.png";
-import "./Achievements.css";
 import { Link } from "react-router-dom";
 
 const MILESTONES = [

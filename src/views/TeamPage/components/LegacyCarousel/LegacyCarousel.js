@@ -1,83 +1,82 @@
-import React from "react";
-import Carousel from "react-multi-carousel";
-import "react-multi-carousel/lib/styles.css";
-import { Card, Col, Container, Row } from "react-bootstrap"
-import "./LegacyCarousel.css"
-import team from "../../../../data/LegacyMembers.json";
+import React, { useRef } from "react";
+import SectionHeading from "components/UI/SectionHeading";
+import { img } from "components/UI/RichText";
+import team from "data/LegacyMembers.json";
 
-const responsive = {
-    desktop: {
-        breakpoint: { max: 3000, min: 1024 },
-        items: 3,
-        slidesToSlide: 3 // optional, default to 1.
-    },
-    tablet: {
-        breakpoint: { max: 1024, min: 576 },
-        items: 2,
-        slidesToSlide: 2 // optional, default to 1.
-    },
-    mobile: {
-        breakpoint: { max: 576, min: 0 },
-        items: 1,
-        slidesToSlide: 1 // optional, default to 1.
-    }
-};
+const ALUMNI = team.teamData.flatMap((section) => section.items);
 
-const LegacyCarousel = () => {
-    return (
-        <div className="legacy-section">
-            <Container>
-                <Row>
-                    <Col>
-                        <h2 className="text-center heading-main">Past Members</h2>
-                    </Col>
-                </Row>
-                <div className="text-center ml-auto mr-auto">
-                    <Carousel swipeable={true}
-                        draggable={true}
-                        showDots={true}
-                        responsive={responsive}
-                        infinite={true}
-                        autoPlay={true}
-                        autoPlaySpeed={4200}
-                        keyBoardControl={true}
-                        customTransition="transform 500ms ease-in"
-                        transitionDuration={500}
-                        containerClass="carousel-container"
-                        removeArrowOnDeviceType={["mobile"]}
-                        dotListClass="react-multi-carousel-dot-list"
-                        itemClass="carousel-item-padding-40-px"
-                        renderButtonGroupOutside={true} 
+/* Horizontal scroll-snap rail of past members. */
+function LegacyRail() {
+  const trackRef = useRef(null);
+
+  const scrollBy = (dir) => {
+    const node = trackRef.current;
+    if (!node) return;
+    node.scrollBy({ left: dir * node.clientWidth * 0.8, behavior: "smooth" });
+  };
+
+  return (
+    <section className="oc-section">
+      <div className="lm-container">
+        <SectionHeading
+          eyebrow="Alumni"
+          title={
+            <>
+              The crew that came <span className="lm-grad">before</span>
+            </>
+          }
+          center
+        />
+        <div className="oc-rail">
+          <div className="oc-rail__track" ref={trackRef}>
+            {ALUMNI.map((m) => (
+              <div className="oc-rail__item" key={m.name}>
+                <article className="oc-alum">
+                  <img
+                    className="oc-alum__img"
+                    src={img(m.image)}
+                    alt={m.name}
+                    loading="lazy"
+                  />
+                  <h3 className="oc-alum__name">{m.name.trim()}</h3>
+                  <p className="oc-alum__sub">{m.subheading}</p>
+                  {m.linkedin && (
+                    <a
+                      href={m.linkedin}
+                      className="oc-member__social"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      aria-label={`${m.name.trim()} on LinkedIn`}
                     >
-                        {
-                            team.teamData.map((section) => {
-                                return (
-                                    <div key={""}>
-                                        {section.items.map((teamMember) => {
-                                            return (
-                                                <div className="carousel-item text-center" key={teamMember.name}>
-                                                    <div className="text-center legacy-cards">
-                                                        <Card.Img src={require("assets/img/" + teamMember.image)} className="legacy-images" />
-                                                        <Card.Body>
-                                                            <Card.Title className="legacy-name">{teamMember.name}</Card.Title>
-                                                            <Card.Text className="legacy-position">{teamMember.subheading} </Card.Text>
-                                                            <a href={teamMember.linkedin} target="_blank" className="legacy-social" rel="noopener noreferrer"> <i className="fa fa-linkedin fa-2x" /></a>
-                                                        </Card.Body>
-                                                    </div>
-                                                </div>
-                                            )
-                                        }
-                                        )}
-                                    </div>
-                                )
-                            })
-                        }
-                    </Carousel>
-                </div>
-
-            </Container>
+                      <i className="fa fa-linkedin" aria-hidden="true" />
+                    </a>
+                  )}
+                </article>
+              </div>
+            ))}
+          </div>
+          <div className="oc-rail__nav">
+            <button
+              type="button"
+              className="oc-rail__btn"
+              onClick={() => scrollBy(-1)}
+              aria-label="Scroll past members left"
+            >
+              <i className="fa fa-chevron-left" aria-hidden="true" />
+            </button>
+            <button
+              type="button"
+              className="oc-rail__btn"
+              onClick={() => scrollBy(1)}
+              aria-label="Scroll past members right"
+            >
+              <i className="fa fa-chevron-right" aria-hidden="true" />
+            </button>
+          </div>
         </div>
-    )
+      </div>
+    </section>
+  );
 }
 
-export default LegacyCarousel
+export default LegacyRail;

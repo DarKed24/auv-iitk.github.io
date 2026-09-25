@@ -1,6 +1,18 @@
 const data = {
     "brief" : "VARUN' was the first Autonomous Underwater Vehicle developed by Team AUV-IITK. Varun participated in several competitions like NIOT SAVe. The vehicle consisted of a central pressure hull along with separate enclosures for the sensors and pneumatic valves. Varun had been equipped with two cameras to provide it with vision, an Inertial Measurement Unit for navigation and orientation, and a depth sensor to enable it to conquer greater depths. Varun could drop markers and fire torpedoes underwater.",
 
+    "intro": {
+        "mechanical": [
+            "Varun's mechanical system comprises an aluminium structural frame, pressure casings and electromagnetic actuators. The mechanical parts were first designed in SolidWorks and Autodesk Inventor and then improved using ANSYS Workbench before final fabrication using the in-house facilities available at the institute."
+        ],
+        "electrical": [
+            "The electrical system provides the interface between the processor and the other electronic devices. Three layers of stacks inside the hull are used for mounting the different electronic devices and PCBs. The Arduino used in Varun is the ATmega1280 microcontroller with an operating voltage of 5V. It has 16 analog input pins and 54 digital I/O pins (of which 15 provide PWM output). The open-source Arduino platform processes the input signals from the main processor and converts them into the desired signals for actuators like the motor drivers and the pneumatic system."
+        ],
+        "software": [
+            "The software architecture of Varun is based on the Robot Operating System (ROS) framework from Willow Garage, which encompasses the underlying messaging infrastructure for inter-process communication in our distributed system."
+        ]
+    },
+
     "specsTable" : [
         {
             "name": "Mass (in air)",

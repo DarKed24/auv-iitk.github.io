@@ -1,52 +1,76 @@
-.event-image {
-  width: 100%;
+/* Events page — competition feature rows */
+.ev + .ev {
+  padding-top: 0;
 }
-
-.event-container {
-  height: 100%;
+.ev__media {
+  display: block;
+  aspect-ratio: 4 / 3;
 }
-
-.headings-container {
-  text-align: center;
-}
-
-.comp-heading {
-  font-weight: 500;
-  font-family: var(--font-heading);
-  color: var(--color-tertiary);
-  margin: 0;
-  padding: 15px 15px 15px 0px;
-}
-
-.comp-heading:hover {
+.ev__title,
+.ev__title:hover {
+  color: inherit;
   text-decoration: none;
-  transition: all 0.3s ease-in;
-  color: var(--color-quartenary);
 }
-
-.primary-heading {
-  font-family: var(--font-heading);
+.ev__ext {
+  font-size: 0.4em;
+  margin-left: 0.6em;
+  vertical-align: middle;
+  color: var(--accent-cyan);
+  opacity: 0;
+  transition: opacity 0.25s ease;
 }
-
-.secondary-heading {
-  font-family: var(--font-primary);
+.ev__title:hover .ev__ext {
+  opacity: 1;
 }
-
-.event-image {
-  box-shadow: 0px 10px 15px rgba(53, 35, 35, 0.5);
+.ev__loc {
+  white-space: normal;
+  margin-bottom: 2.4rem;
 }
-
-.auv-description-primary {
-  font-size: 1.8rem;
+.ev__lists {
+  display: flex;
+  flex-direction: column;
+  gap: 1.8rem;
 }
-
-.tarang-link{
-  color: rgb(81, 179, 224) !important;
-  font-weight: 700;
-  transition: all 0.2s;
+.ev-info__title {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 1.45rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--accent-aqua);
+  margin: 0 0 0.8rem;
 }
-
-.tarang-link:hover{
+.ev-info__title i {
+  margin-right: 0.5rem;
+}
+.ev-info__list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.ev-info__list li {
+  position: relative;
+  padding-left: 2rem;
+  font-family: var(--font-body-modern);
   font-size: 1.5rem;
-  transform: scale(1.2);
+  font-weight: 300;
+  line-height: 1.7;
+  color: var(--ocean-text);
+}
+.ev-info__list li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 1em;
+  width: 0.8rem;
+  height: 0.8rem;
+  border-radius: 50%;
+  background: var(--accent-cyan);
+  box-shadow: 0 0 10px var(--accent-glow);
+}
+.ev__desc {
+  max-width: 96rem;
+  margin: 4rem 0 0;
+  padding-top: 3rem;
+  border-top: 1px solid var(--glass-border);
 }

@@ -3,7 +3,6 @@ import atal from "assets/img/atal.png";
 import varun from "assets/img/varun/varun-underwater.jpg";
 import anahita from "assets/img/anahita/anahita-underwater.png";
 import { Link } from "react-router-dom";
-import "./Vehicles.css";
 
 const FLEET = [
   {

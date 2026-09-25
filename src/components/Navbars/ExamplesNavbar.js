@@ -1,10 +1,8 @@
-import React from "react";
-import { Link } from "react-router-dom";
-// nodejs library that concatenates strings
+import React, { useEffect, useState } from "react";
+import { Link, useLocation } from "react-router-dom";
 import classnames from "classnames";
 import auvlogomini from "../../assets/img/logos/logo_v1.32.png";
 import "./ExamplesNavbar.css";
-// reactstrap components
 import {
   Collapse,
   Container,
@@ -19,327 +17,188 @@ import {
   UncontrolledDropdown,
 } from "reactstrap";
 
-function ExamplesNavbar(props) {
-  const [navbarCollapse, setNavbarCollapse] = React.useState(false);
+const TEAM_LINKS = [
+  { to: "/team", label: "Overview" },
+  { to: "/mechanical", label: "Mechanical" },
+  { to: "/electrical", label: "Electrical" },
+  { to: "/software", label: "Software" },
+];
 
-  // Visibility is driven purely by the reactstrap `.show` state (see the CSS).
-  // We deliberately do NOT toggle paper-kit's off-canvas "nav-open" class —
-  // that was shifting the whole bar (logo off-screen, toggler to the left).
-  const toggleNavbarCollapse = () => {
-    setNavbarCollapse(!navbarCollapse);
-  };
+const VEHICLE_LINKS = [
+  { to: "/vehicles/atal", label: "Atal" },
+  { to: "/vehicles/anahita", label: "Anahita" },
+  { to: "/vehicles/varun", label: "Varun" },
+];
 
-  // Used by nav links: only ever closes the menu.
-  const closeNavbar = () => {
+const SOCIALS = [
+  { href: "https://www.instagram.com/auviitk/", icon: "fa-instagram", label: "Instagram" },
+  { href: "https://www.facebook.com/auviitk", icon: "fa-facebook-square", label: "Facebook" },
+  { href: "https://github.com/AUV-IITK", icon: "fa-github", label: "GitHub" },
+];
+
+const TEAM_PATHS = ["/team", "/mechanical", "/electrical", "/software", "/business"];
+
+function ExamplesNavbar() {
+  const { pathname } = useLocation();
+  const isLanding = pathname.startsWith("/landing-page");
+  const [navbarCollapse, setNavbarCollapse] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+
+  // On the landing page the bar stays in flow under the hero and only
+  // frosts + fixes itself once the user has scrolled past the hero.
+  useEffect(() => {
+    if (!isLanding) return undefined;
+    const onScroll = () => setScrolled(window.scrollY > 850);
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, [isLanding]);
+
+  // Close the mobile menu on navigation.
+  useEffect(() => {
     setNavbarCollapse(false);
-    document.documentElement.classList.remove("nav-open");
-  };
-  const [scrolled, setScrolled] = React.useState(false);
+  }, [pathname]);
 
-  const handleScroll = () => {
-    const offset = window.scrollY;
-    if (offset > 850) {
-      setScrolled(true);
-    } else {
-      setScrolled(false);
-    }
-  };
-  React.useEffect(() => {
-    window.addEventListener("scroll", handleScroll);
+  const closeNavbar = () => setNavbarCollapse(false);
+  const isActive = (to) => pathname === to || pathname.startsWith(`${to}/`);
+  const linkClass = (to) => classnames("navbar-content", { active: isActive(to) });
+
+  const wrapperClass = classnames("navbar", "custom-navbar-auv", {
+    scrolled: !isLanding || scrolled,
   });
 
-  let x = ["navbar", "custom-navbar-auv"];
-  if (props.page === "landing-page") {
-    if (scrolled) {
-      x.push("scrolled");
-    }
-  } else x.push("scrolled");
-
   return (
-    <div className={x.join(" ")}>
-      <Navbar color-on-scroll="300" expand="xl" className="custom-navbar-auv">
+    <div className={wrapperClass}>
+      <Navbar expand="xl" className="custom-navbar-auv" aria-label="Main navigation">
         <Container className="navbar-container">
           <div className="navbar-translate">
             <NavbarBrand
-              data-placement="bottom"
-              to="/index"
-              title="Coded by Creative Tim"
+              to="/landing-page"
+              title="Team AUV-IITK — Home"
               tag={Link}
               style={{ marginLeft: "20px", padding: "0 0" }}
+              onClick={closeNavbar}
             >
-              <img className="minilogo w-100" src={auvlogomini} alt="logo" />
+              <img className="minilogo w-100" src={auvlogomini} alt="AUV-IITK logo" />
             </NavbarBrand>
             <button
+              type="button"
               aria-expanded={navbarCollapse}
-              className={classnames(
-                "navbar-toggler navbar-toggler u-margin-zero",
-                {
-                  toggled: navbarCollapse,
-                }
-              )}
-              onClick={toggleNavbarCollapse}
+              aria-label="Toggle navigation"
+              className={classnames("navbar-toggler u-margin-zero", {
+                toggled: navbarCollapse,
+              })}
+              onClick={() => setNavbarCollapse((v) => !v)}
             >
               <span className="navbar-toggler-bar bar1" />
               <span className="navbar-toggler-bar bar2" />
               <span className="navbar-toggler-bar bar3" />
             </button>
           </div>
-          <Collapse
-            className=" justify-content-end"
-            navbar
-            isOpen={navbarCollapse}
-          >
-            <Nav navbar className=" mr-5 navigation">
+
+          <Collapse className="justify-content-end" navbar isOpen={navbarCollapse}>
+            <Nav navbar className="mr-5 navigation">
               <NavItem>
-                <NavLink
-                  className={
-                    props.activePage === "/landing-page"
-                      ? "navbar-content active"
-                      : "navbar-content"
-                  }
-                  to="/landing-page"
-                  tag={Link}
-                  onClick={closeNavbar}
-                >
+                <NavLink className={linkClass("/landing-page")} to="/landing-page" tag={Link} onClick={closeNavbar}>
                   Home
                 </NavLink>
               </NavItem>
               <NavItem>
-                <NavLink
-                  className={
-                    props.activePage === "/about-us"
-                      ? "navbar-content active"
-                      : "navbar-content"
-                  }
-                  to="/about-us"
-                  tag={Link}
-                  onClick={closeNavbar}
-                >
+                <NavLink className={linkClass("/about-us")} to="/about-us" tag={Link} onClick={closeNavbar}>
                   About Us
                 </NavLink>
               </NavItem>
-              {/* <NavItem>
-                <NavLink className={props.activePage === "/team" ? "navbar-content active" : "navbar-content"} to="/team" tag={Link} onClick={closeNavbar}>
-                  Team
-                </NavLink>
-              </NavItem> */}
+
               <UncontrolledDropdown nav inNavbar>
                 <DropdownToggle
-                  aria-expanded={false}
-                  aria-haspopup={true}
                   caret
-                  color="black"
-                  data-toggle="dropdown"
-                  href="#pablo"
-                  id="dropdownMenuButton"
                   nav
-                  onMouseEnter={e => e.preventDefault()}
-                  role="button"
-                  style={{ textAlign: 'center' }}
-                  className={props.activePage === "/mechanical" || props.activePage === "/electrical" || props.activePage === "/software" || props.activePage === "/management" ? "navbar-content active" : "navbar-content"}
+                  href="#team"
+                  id="navTeamToggle"
+                  onClick={(e) => e.preventDefault()}
+                  className={classnames("navbar-content", {
+                    active: TEAM_PATHS.some(isActive),
+                  })}
                 >
                   Team
                 </DropdownToggle>
-                <DropdownMenu
-
-                  aria-labelledby="dropdownMenuButton"
-                  className="dropdown-info ml-auto mr-auto"
-                  style={{ borderRadius: "0", textAlign: "center" }}
-                >
-                  <Link to='/team'>
+                <DropdownMenu aria-labelledby="navTeamToggle" className="dropdown-info">
+                  {TEAM_LINKS.map((l) => (
                     <DropdownItem
-                      style={{ textAlign: "center" }}
+                      key={l.to}
+                      tag={Link}
+                      to={l.to}
                       className="auv-dropdown"
                       onClick={closeNavbar}
                     >
-                      Overview
+                      {l.label}
                     </DropdownItem>
-                  </Link>
-                  <Link to='/mechanical'>
-                    <DropdownItem
-                      style={{ textAlign: "center" }}
-                      className="auv-dropdown"
-                      onClick={closeNavbar}
-                    >
-                      Mechanical
-                    </DropdownItem>
-                  </Link>
-                  <Link to='/electrical'>
-                    <DropdownItem
-                      style={{ textAlign: "center" }}
-                      className=" auv-dropdown"
-                      onClick={closeNavbar}
-                    >
-                      Electrical
-                    </DropdownItem>
-                  </Link>
-                  <Link to='/software'>
-                    <DropdownItem
-                      style={{ textAlign: "center" }}
-                      className="auv-dropdown"
-                      onClick={closeNavbar}
-                    >
-                      Software
-                    </DropdownItem>
-                  </Link>
-                  {/* <Link to='/business'>
-                    <DropdownItem
-                      style={{ textAlign: "center" }}
-                      className="auv-dropdown"
-                      onClick={closeNavbar}
-                    >
-                      Business
-                    </DropdownItem>
-                  </Link> */}
+                  ))}
                 </DropdownMenu>
               </UncontrolledDropdown>
+
               <NavItem>
-                <NavLink
-                  className={
-                    props.activePage === "/events"
-                      ? "navbar-content active"
-                      : "navbar-content"
-                  }
-                  to="/events"
-                  tag={Link}
-                  onClick={closeNavbar}
-                >
+                <NavLink className={linkClass("/events")} to="/events" tag={Link} onClick={closeNavbar}>
                   Events
                 </NavLink>
               </NavItem>
+
               <UncontrolledDropdown nav inNavbar>
                 <DropdownToggle
-                  aria-expanded={false}
-                  aria-haspopup={true}
                   caret
-                  color="black"
-                  data-toggle="dropdown"
-                  href="#pablo"
-                  id="dropdownMenuButton"
                   nav
+                  href="#vehicles"
+                  id="navVehiclesToggle"
                   onClick={(e) => e.preventDefault()}
-                  role="button"
-                  style={{ textAlign: "center" }}
-                  className={
-                    props.activePage === "/vehicles/anahita" ||
-                    props.activePage === "/vehicles/varun"
-                      ? "navbar-content active"
-                      : "navbar-content"
-                  }
+                  className={classnames("navbar-content", {
+                    active: pathname.startsWith("/vehicles"),
+                  })}
                 >
                   Vehicles
                 </DropdownToggle>
-                <DropdownMenu
-                  aria-labelledby="dropdownMenuButton"
-                  className="dropdown-info ml-auto mr-auto"
-                  style={{ borderRadius: "0", textAlign: "center" }}
-                >
-                  {/* <Link to="/vehicles/tarang">
+                <DropdownMenu aria-labelledby="navVehiclesToggle" className="dropdown-info">
+                  {VEHICLE_LINKS.map((l) => (
                     <DropdownItem
-                      style={{ textAlign: "center" }}
+                      key={l.to}
+                      tag={Link}
+                      to={l.to}
                       className="auv-dropdown"
                       onClick={closeNavbar}
                     >
-                      Tarang
+                      {l.label}
                     </DropdownItem>
-                  </Link> */}
-                  <Link to="/vehicles/atal">
-                    <DropdownItem
-                      style={{ textAlign: "center" }}
-                      className="auv-dropdown"
-                      onClick={closeNavbar}
-                    >
-                      Atal
-                    </DropdownItem>
-                  </Link>
-                  <Link to="/vehicles/anahita">
-                    <DropdownItem
-                      style={{ textAlign: "center" }}
-                      className=" auv-dropdown"
-                      onClick={closeNavbar}
-                    >
-                      Anahita
-                    </DropdownItem>
-                  </Link>
-                  <Link to="/vehicles/varun">
-                    <DropdownItem
-                      style={{ textAlign: "center" }}
-                      className="auv-dropdown"
-                      onClick={closeNavbar}
-                    >
-                      Varun
-                    </DropdownItem>
-                  </Link>
+                  ))}
                 </DropdownMenu>
               </UncontrolledDropdown>
+
               <NavItem>
-                <NavLink
-                  className={
-                    props.activePage === "/blogs"
-                      ? "navbar-content active"
-                      : "navbar-content"
-                  }
-                  to="/blogs"
-                  tag={Link}
-                >
+                <NavLink className={linkClass("/blogs")} to="/blogs" tag={Link} onClick={closeNavbar}>
                   Blogs
                 </NavLink>
               </NavItem>
               <NavItem>
-                <NavLink
-                  className={
-                    props.activePage === "/contact-us"
-                      ? "navbar-content active"
-                      : "navbar-content"
-                  }
-                  to="/contact-us"
-                  tag={Link}
-                >
+                <NavLink className={linkClass("/contact-us")} to="/contact-us" tag={Link} onClick={closeNavbar}>
                   Contact Us
                 </NavLink>
               </NavItem>
-              <NavItem>
-                <NavLink
-                  data-placement="bottom"
-                  href="https://www.instagram.com/auviitk/"
-                  target="_blank"
-                  title="Like us on Instagram"
-                  style={{ textAlign: "center", color: "white" }}
-                >
-                  <i className="fa fa-instagram nav-social" />
-                  <p className="d-lg-none" style={{ color: "white" }}>
-                    Instagram
-                  </p>
-                </NavLink>
-              </NavItem>
-              <NavItem>
-                <NavLink
-                  data-placement="bottom"
-                  href="https://www.facebook.com/auviitk"
-                  target="_blank"
-                  title="Like us on Facebook"
-                  style={{ textAlign: "center", color: "white" }}
-                >
-                  <i className="fa fa-facebook-square nav-social" />
-                  <p className="d-lg-none" style={{ color: "white" }}>
-                    Facebook
-                  </p>
-                </NavLink>
-              </NavItem>
-              <NavItem>
-                <NavLink
-                  data-placement="bottom"
-                  href="https://github.com/AUV-IITK"
-                  target="_blank"
-                  title="Star on GitHub"
-                  style={{ textAlign: "center", color: "white" }}
-                >
-                  <i className="fa fa-github nav-social" />
-                  <p className="d-lg-none" style={{ color: "white" }}>
-                    GitHub
-                  </p>
-                </NavLink>
-              </NavItem>
+
+              {SOCIALS.map((s) => (
+                <NavItem key={s.label}>
+                  <NavLink
+                    href={s.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    title={s.label}
+                    aria-label={s.label}
+                    style={{ textAlign: "center", color: "white" }}
+                  >
+                    <i className={`fa ${s.icon} nav-social`} aria-hidden="true" />
+                    <p className="d-xl-none" style={{ color: "white" }}>
+                      {s.label}
+                    </p>
+                  </NavLink>
+                </NavItem>
+              ))}
             </Nav>
           </Collapse>
         </Container>

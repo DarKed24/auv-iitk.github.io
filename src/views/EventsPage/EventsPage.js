@@ -1,90 +1,87 @@
-import React from 'react'
-// reactstrap components
-import { Container, Row } from 'reactstrap'
-import ExamplesNavbar from '../../components/Navbars/ExamplesNavbar'
+import React from "react";
+import PageShell from "components/Layout/PageShell";
+import PageHero from "components/Layout/PageHero";
+import JoinUs from "components/Sections/JoinUs";
+import FadeIn from "views/Animations/FadeIn";
 
-import robosubimg from '../../assets/img/Competetions/robosub.jpg'
-import niotimg from '../../assets/img/Competetions/niot.jpg'
-import sauvcimg from '../../assets/img/Competetions/sauvc.jpg'
+import robosubimg from "assets/img/Competetions/robosub.jpg";
+import niotimg from "assets/img/Competetions/niot.jpg";
+import sauvcimg from "assets/img/Competetions/sauvc.jpg";
 
-import Event from './components/Event'
+import Event from "./components/Event";
 
-function LandingPage() {
-  document.documentElement.classList.remove('nav-open')
-  React.useEffect(() => {
-    window.scrollTo(0, 0)
-    document.body.classList.add('profile-page')
-    return function cleanup() {
-      document.body.classList.remove('profile-page')
-    }
-  })
+const EVENTS = [
+  {
+    name: "RoboSub",
+    link: "https://robosub.org/",
+    location: "Woollett Aquatics Center, Irvine, California, USA",
+    organiser: "RoboNation",
+    participation: [
+      "Looking forward to RoboSub 2026",
+      "Participated in RoboSub 2021",
+      "Participated in RoboSub 2019",
+    ],
+    laurels: [
+      "3rd position in the Website category, RoboSub 2021",
+      "4th and 6th position in the Skills Video category, RoboSub 2021",
+      "16th position in the TDR category, RoboSub 2021",
+    ],
+    description:
+      "RoboSub is an international student competition. Student teams from around the world design and build robotic submarines, otherwise known as Autonomous Underwater Vehicles (AUVs). The behaviours demonstrated by these experimental AUVs mimic those of real-world systems currently deployed around the world for underwater exploration, seafloor mapping and sonar localisation, amongst many others.",
+    image: robosubimg,
+  },
+  {
+    name: "SAUVC",
+    link: "https://sauvc.org/",
+    location: "Singapore",
+    organiser: "Singapore AUV Challenge",
+    participation: ["Participated in SAUVC 2025"],
+    laurels: [],
+    description:
+      "The SAUVC competition challenges participant teams to build an AUV which can perform given tasks — simulations of the tasks operational AUVs have to be able to perform. The competition is held in a swimming pool and each team's AUV has to perform four tasks. The speed and accuracy at which the AUV performs the tasks decide the winner. The tasks cover four widely faced challenges underwater: AUV navigation, visual identification, acoustic localisation and robotic manipulation.",
+    image: sauvcimg,
+  },
+  {
+    name: "NIOT SAVe",
+    link: "http://www.indiamts.com/activities%20Report/6th_National_Competition_on_Student_Autonomous_underwater_Vehicle_SAVe_2019.pdf",
+    location: "Chennai, India",
+    organiser: "National Institute of Ocean Technology",
+    participation: ["Participated in NIOT SAVe 2019", "Participated in NIOT SAVe 2017"],
+    laurels: ["Runner-up, NIOT SAVe 2019", "Runner-up, NIOT SAVe 2017"],
+    description:
+      "ESSO-National Institute of Ocean Technology (NIOT), under the Ministry of Earth Sciences, organises the National Student Autonomous Underwater Vehicle competition for engineering students to visualise and design an autonomous underwater vehicle. The conceptual basis for the Student Autonomous underwater Vehicle (SAVe) is a highly mobile AUV built on sound engineering principles. The main focus of the competition is to involve students in the new frontier areas of ocean technology and kindle their innovative thinking in this unexplored area of ocean environment and observation.",
+    image: niotimg,
+  },
+];
 
-  const event1 = {
-    name: 'ROBOSUB',
-    link: 'https://robosub.org/',
-    heading: 'Location',
-    subheading: 'Woollett Aquatics Center, Irvine, California, USA',
-    heading02: 'Our Participation',
-    subheading08: 'Looking forward to participate in Robosub-2026',
-    subheading02: 'Participated in Robosub-2021',
-    // subheading02: '3rd position in Website, 4th and 6th in Skill Video and 16th position in TDR Report',
-    subheading04: 'Participated in Robosub-2019',
-    heading03: 'Laurels',
-    subheading05: '3rd Position in Website category, RoboSub-2021',
-    subheading06: '4th and 6th Position in Skills Video category, RoboSub-2021',
-    subheading07: '16th Position in TDR category, RoboSub-2021',
-    para1:
-      'RoboSub is an international student competition. Student teams from around the world design and build robotic submarines, otherwise known as Autonomous Underwater Vehicles (AUV). The behaviors demonstrated by these experimental AUVs mimics those of real-world systems, currently deployed around the world for underwater exploration, seafloor mapping, and sonar localization, amongst many others.',
-    para2: '',
-    image: robosubimg
-  }
-  const event2 = {
-    name: 'NIOT SAVe',
-    link: 'http://www.indiamts.com/activities%20Report/6th_National_Competition_on_Student_Autonomous_underwater_Vehicle_SAVe_2019.pdf',
-    heading: 'Location',
-    subheading: 'Chennai, India',
-    heading02: 'Our Participation',
-    subheading02: 'Participated in NIOT SAVe 2019',
-    subheading03: 'Participated in NIOT SAVe 2017',
-    heading03: 'Laurels',
-    subheading05: 'Runner-up NIOT SAVe 2019',
-    subheading06: 'Runner-up NIOT SAVe 2019',
-    para1:
-      'ESSO-National Institute of Technology (NIOT) , under the Ministry of Earth Sciences,organizes the National Student Autonomous underwater Vehicle Competition for students pursuing engineering degree to visualize and design an autonomous underwater vehicle.The conceptual basis for Student Autonomous underwater Vehicle (SAVe), is a highly mobile Autonomous Underwater Vehicle (AUV) to be built based on engineering principles. The main focus of this competition is to involve students on the new frontier areas of ocean technology and kindle their innovative thinking in this unexplored area of ocean environment and observation.',
-    para2: '',
-    image: niotimg
-  }
-  const event3 = {
-    name: 'SAUVC',
-    link: 'https://sauvc.org/',
-    heading: 'Location',
-    subheading: 'Singapore, Asia',
-    heading02: 'Our Participation',
-    subheading02: 'Participated in SAUVC 2025',
-    subheading03: '',
-    subheading04: '',
-    para1:
-      "The SAUVC competition challenges participant teams to build an AUV which can perform given tasks. These tasks are simulations of tasks operational AUVs would have to be able to perform. The competition is held in a swimming pool and each team's AUV will have to perform 4 tasks. The speed and accuracy at which the AUV performs tasks will be used to decide the winner of the competition. The tasks involve four widely faced challenges underwater such as AUV navigation, visual identification, acoustic localization and robotic manipulation.",
-    para2: '',
-    image: sauvcimg
-  }
+function EventsPage() {
   return (
-    <div className="mobile-responsive">
-      <ExamplesNavbar activePage="/events" />
-      <div className="section text-center ">
-        <Container className="reduce-margin">
-          <Row>
-            <h2 className="heading-main">AUV EVENTS & COMPETITIONS</h2>
-          </Row>
-        </Container>
-      </div>
-      <div className="main">
-        <Event event={event1}> </Event>
-        <Event event={event3}> </Event>
-        <Event event={event2}> </Event>
-      </div>
-    </div>
-  )
+    <PageShell title="Events & Competitions">
+      <PageHero
+        kicker="Events"
+        title="Where we compete"
+        lead="From Irvine to Singapore to Chennai — the competitions that push our vehicles, and our team, to the limit."
+        image={robosubimg}
+        meta={EVENTS.map((e) => (
+          <a href={`#event-${e.name.toLowerCase().replace(/\s+/g, "-")}`} className="oc-chip" key={e.name}>
+            <i className="fa fa-trophy" aria-hidden="true" /> {e.name}
+          </a>
+        ))}
+      />
+
+      {EVENTS.map((e, i) => (
+        <FadeIn direction="up" key={e.name}>
+          <Event event={e} reverse={i % 2 === 1} />
+        </FadeIn>
+      ))}
+
+      <JoinUs
+        kicker="Next stop"
+        title="RoboSub 2026"
+        text="Atal is being readied for RoboSub 2026. Follow the build, or reach out if you would like to support the team on the road to Irvine."
+      />
+    </PageShell>
+  );
 }
 
-export default LandingPage
+export default EventsPage;
