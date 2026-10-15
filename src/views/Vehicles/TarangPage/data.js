@@ -52,7 +52,7 @@ const data = {
             "id": 1,
             "title": "Main Hull",
             "content": "A major improvement over our previous AUV's is the design of a single main hull. The vehicle hull is made of carbon fibre, making it easier to mold into the desired shape and reducing weight. The weight reduction is advantageous as it significantly minimizes the thrust to move or stop the bot. In addition, a single hull allows us to increase the simplicity of design to a large extent, reducing the need for penetrators in and out of individual hulls and improving accessibility. The penetrators were often the primary cause for most of the leakages in our previous bot, and it was challenging for us to find and fix leaks. A single hull allows us to check for leakages using a single test without being in the pool. We have installed a pressure sensor in the main hull, which assists in leak detection. We lower the pressure inside the hull slightly once all the components are fitted in it. If the pressure sensor reading increases with time, i.e. air can enter due to some leaks in the hull, we will know about the leakages even before putting the vehicle in water.",
-            "img": "hull_final.png",
+            "img": "hull_final.jpg",
             "imgDesc": "A view of Tarang's hull design."
         },
         {
@@ -74,21 +74,21 @@ const data = {
             "title": "Marker Dropper",
             "imgSize": "sm",
             "content": "We have changed the design of the marker dropper from our previous vehicles. The previous design had several disadvantages like high precision requirement during manufacturing and tricky reloading procedure. It was also difficult to mount on the vehicle. The new design is much simpler, more accurate and more reliable. It will have two markers(golf balls) hydrodynamically designed to fall straight down once they are released. The marker dropper is located near the camera to minimize the errors due to frame transformations. It consists of a star shaped obstructor preventing the marker (golf balls from falling). Once a trigger signal is received, the servo actuated star-shaped obstructor rotates and allows the markers to fall.",
-            "img": "md working2.PNG",
+            "img": "md working2.jpg",
             "imgDesc": "Marker Dropper Mechanism"
         },
         {
             "id":5,
             "title": "Grabber",
             "content": "We have designed a singly actuated grabber actuated using a servo motor. The grabber has a relatively simple design, and its manufacturing can be perfected easily. The grabber has four claws which are capable of picking objects with high efficiency.",
-            "img": "grabber_combined.png",
+            "img": "grabber_combined.jpg",
             "imgDesc": "Working of grabber"
         },
         {
             "id":6,
             "title": "Pneumatic System",
             "content": "The pneumatic system used in Tarang is a self-designed component capable of shooting torpedoes with accuracy. The assembly uses two IP 68 rated solenoid valves (one for each torpedo). Because the solenoid valve is waterproof, we can install the whole torpedo assembly as a single unit outside the vehicle and mount it at the base, thus removing the need for unnecessary air tubing and increasing space inside the hull for other components.",
-            "img": "torpedo compartments.PNG",
+            "img": "torpedo compartments.jpg",
             "imgDesc": "The Torpedo Compartments"
         },
         {
@@ -119,7 +119,7 @@ const data = {
                         },
                         {
                                 "type": "img",
-                                "src": "boost_render.png",
+                                "src": "boost_render.jpg",
                                 "caption": "Boost Converter",
                                 "size": "sm"
                         },
@@ -133,7 +133,7 @@ const data = {
                         },
                         {
                                 "type": "img",
-                                "src": "buck_render.png",
+                                "src": "buck_render.jpg",
                                 "caption": "Buck Converter",
                                 "size": "sm"
                         },
@@ -164,7 +164,7 @@ const data = {
             "id":2,
             "title": "Sensor Integration",
             "content": "Integration of industrial sensors and interfacing directly with onboard computers enables robust and real-time state estimation. This year, we have upgraded to the iDS ueye industrial cameras for better colour quality and enhanced focus. Through the help of a newly introduced network switch, the camera feed can now directly be transferred to GPU for object detection and recognition. The external LAN now and the onboard computer also have direct control over cameras and GPU. The new microcontroller board is designed to significantly reduce its size (using only necessary GPIO pins) and organizes connectors for the actuator and manipulator and several other peripherals.",
-            "img": "esc_render.png",
+            "img": "esc_render.jpg",
             "imgDesc": "ESC Board"
         },
         {
@@ -220,7 +220,7 @@ const data = {
                         },
                         {
                                 "type": "img",
-                                "src": "Software_Architecture.png",
+                                "src": "Software_Architecture.jpg",
                                 "caption": "Tarang's Software Architecture",
                                 "size": "lg"
                         }
@@ -264,7 +264,7 @@ const data = {
                         },
                         {
                                 "type": "img",
-                                "src": "processing_combined.png",
+                                "src": "processing_combined.jpg",
                                 "caption": "Image before preprocessing vs. image after preprocessing",
                                 "size": "md"
                         }
@@ -274,19 +274,19 @@ const data = {
             "id":1,
             "title": "Control System",
             "content": "We have improved the control system in our new vehicle by performing fine thruster calibrations and using a cascaded PID controller for precise movements. Tarang is fully actuated with six thrusters providing six degrees of freedom to the vehicle. Each thruster is calibrated to map the thrust vs PWM input pulse, and these mappings are used to generate a thruster allocation matrix to distribute the thrusts generated by the PID controller to the thrusters. Since each thruster provides thrust only in a particular degree of freedom, it gives a highly decoupled system that allows the vehicle to perform aggressive manoeuvres. Furthermore, decoupled thrusters with the independent position and velocity controller provide a way to tune the position and orientation controller independently. Hence we can tune the PID systems easily.We have implemented a cascaded PID controller for better motion tracking, which considers the error in velocity as well as the error in position to calculate thrusts. It allows a faster compensation with the velocity controller providing a mechanism to prevent overshoot. Since the vehicle's weight is less, it can provide faster response, but it is also prone to large overshoots and oscillations, so parameters are tuned to provide damping and slow down the response. As a result, the motion tracking of Tarang is better than our last vehicle Anahita in terms of lower settling time, almost zero overshoot and ability to perform aggressive manoeuvres.",
-            "img": "Control Layer.png",
+            "img": "Control Layer.jpg",
             "imgDesc": "Tarang's Control Layer"
         },
         {   "id":2,
             "title": "Navigation",
             "content": "We have set a sensor fusion pipeline to combine the readings from different sensors and better assess the measurement using the Kalman Filtering algorithm. The usage of sensor fusion enabled us to compensate for the errors in IMU reading due to magnetic interference and position offset. This year we have added an implementation of the SLAM algorithm known as FastSLAM for navigation. Fast SLAM provides a factored and more efficient way to solve the SLAM problem and provides a way to solve it with a complexity that scales logarithmically with the number of landmarks observed. The navigation layer publishes a world map estimate using a 2.5-dimensional occupancy grid. The occupancy grid stores the estimates of the current state of the robot, global locations of the landmarks and previously traversed locations on the map. The global map helps us in planning and changing our strategy dynamically.",
-            "img": "Navigation Layer (4).png",
+            "img": "Navigation Layer (4).jpg",
             "imgDesc": "Tarang's Navigation Layer"
         },
         {   "id":3,
             "title": "YoloV3",
             "content": "For detecting various objects like buoys, gates during the tasks, we are using the YOLOv3 object detection algorithm in contrast to classical computer vision algorithms used in our last vehicle Anahita. YOLOv3 provides better results than classical algorithms as it generates the bounding box in a single pass of the input image as compared to multiple passes in classical methods. To train the YOLOv3 network, we generated rosbags of camera feed by running the vehicle in simulator and recording the camera output and then augmented (rotation, scaling, color variation, occlusion) the frames obtained from these rosbags to generate an extensive dataset.",
-            "img": "F_YOLO.png",
+            "img": "F_YOLO.jpg",
             "imgDesc": "YoloV3 in action"
         },
         {   "id":4,
@@ -298,7 +298,7 @@ const data = {
         {   "id":5,
             "title": "Gazebo Simulation",
             "content": "Extensive testing was performed in the gazebo using the simulated robot model of our vehicle. The open-source simulation tool UUV-simulator was used to simulate an underwater environment. We tested the ability of the vehicle to perform tasks. A simulated gazebo world was made using exact models of the props used in competitions, and the tasks were performed autonomously in that simulation. We used the plugins from the UUV-simulator library to simulate the physics of the world. The vehicle performed the gate task, path follower task, buoy task, marker dropper task, and octagon task successfully. The controller was tested in the simulation and fine-tuned the parameters. As a result, the maximum overshoot was limited to less than 5 percent and achieved a settling time of 10 seconds and negligible steady-state error for a unit step signal.",
-            "img": "Gazebo Simulation.png",
+            "img": "Gazebo Simulation.jpg",
             "imgDesc": "Simulation in Gazebo"
         }
     ]

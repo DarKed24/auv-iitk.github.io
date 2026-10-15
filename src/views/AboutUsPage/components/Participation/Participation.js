@@ -4,7 +4,7 @@ import SectionHeading from "components/UI/SectionHeading";
 import combinedimage from "assets/img/competitions.jpg";
 import resimage from "assets/img/research.jpg";
 import csrimage from "assets/img/csr2025.jpeg";
-import trainimage from "assets/img/training2025.png";
+import trainimage from "assets/img/training2025.jpg";
 
 const TABS = [
   {

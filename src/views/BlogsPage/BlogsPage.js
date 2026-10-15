@@ -2,7 +2,7 @@ import React from "react";
 import PageShell from "components/Layout/PageShell";
 import PageHero from "components/Layout/PageHero";
 import FadeIn from "views/Animations/FadeIn";
-import heroImg from "assets/img/blog/background.png";
+import heroImg from "assets/img/blog/background.jpg";
 import blogsData from "data/Blogs.json";
 import Blog from "./components/Blog";
 

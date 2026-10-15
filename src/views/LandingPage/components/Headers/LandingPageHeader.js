@@ -11,8 +11,10 @@ const diveDown = () => {
   // Scroll exactly past the hero (its own height) rather than by viewport
   // height — on mobile the browser chrome makes innerHeight < the hero, which
   // left the hero partially visible after the scroll.
+  // The navbar fixes itself at exactly this offset, so the capability chips
+  // land right underneath it.
   const hero = document.querySelector(".lp-hero");
-  const target = hero ? hero.offsetHeight - 1 : window.innerHeight;
+  const target = hero ? hero.offsetHeight : window.innerHeight;
   window.scrollTo({ top: target, behavior: "smooth" });
 };
 

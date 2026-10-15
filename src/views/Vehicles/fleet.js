@@ -4,11 +4,11 @@ import varunData from "./VarunPage/data";
 import tarangData from "./TarangPage/data";
 
 import atalHero from "assets/img/atal/atal2026.jpeg";
-import atalPoster from "assets/img/atal.png";
-import anahitaPoster from "assets/img/anahita/anahita-underwater.png";
-import anahitaHero from "assets/img/anahita/anahita-underwater2.png";
+import atalPoster from "assets/img/atal.jpg";
+import anahitaPoster from "assets/img/anahita/anahita-underwater.jpg";
+import anahitaHero from "assets/img/anahita/anahita-underwater2.jpg";
 import varunPoster from "assets/img/varun/varun-underwater.jpg";
-import tarangPoster from "assets/img/tarang/Tarang.png";
+import tarangPoster from "assets/img/tarang/Tarang.jpg";
 
 /**
  * Registry of every vehicle page. `listed` controls whether the vehicle

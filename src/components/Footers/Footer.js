@@ -3,50 +3,69 @@ import { Link } from "react-router-dom";
 import "./Footer.css";
 import logo from "assets/img/logos/logo_v1.32.png";
 
+// Passive bubble field that drifts up through the whole footer.
+const AMBIENT = [
+  { left: "4%", size: 10, delay: 0, dur: 13 },
+  { left: "11%", size: 6, delay: 5, dur: 10 },
+  { left: "19%", size: 16, delay: 2, dur: 16 },
+  { left: "27%", size: 8, delay: 7, dur: 11 },
+  { left: "35%", size: 12, delay: 1, dur: 14 },
+  { left: "44%", size: 6, delay: 9, dur: 9 },
+  { left: "52%", size: 18, delay: 4, dur: 17 },
+  { left: "60%", size: 9, delay: 6, dur: 12 },
+  { left: "68%", size: 13, delay: 3, dur: 13 },
+  { left: "76%", size: 7, delay: 8, dur: 10 },
+  { left: "84%", size: 15, delay: 1, dur: 15 },
+  { left: "91%", size: 9, delay: 5, dur: 11 },
+  { left: "97%", size: 6, delay: 10, dur: 9 },
+];
+
 /**
- * An interactive "water surface" strip. Drag the cursor through it to release
- * rising bubbles; click to pop a burst with a ripple. Pure DOM + CSS, every
- * element self-removes when its animation ends, so it stays light.
+ * Turns the whole footer into water: ambient bubbles rise continuously, and
+ * on hover-capable devices moving the cursor releases extra bubbles from the
+ * pointer while a click pops a burst with a ripple. Spawned elements remove
+ * themselves when their animation ends, so the DOM stays small.
  */
-function BubbleSurface() {
-  const ref = useRef(null);
+function useBubbleField(ref) {
   const last = useRef(0);
   const reduced =
     typeof window !== "undefined" &&
     window.matchMedia &&
     window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-  const spawnBubble = (x) => {
+  const spawnBubble = (x, y) => {
     const node = ref.current;
     if (!node) return;
     const b = document.createElement("span");
     b.className = "fb-bubble";
     const size = 6 + Math.random() * 16;
     b.style.left = `${x}px`;
+    b.style.top = `${y}px`;
     b.style.width = `${size}px`;
     b.style.height = `${size}px`;
-    b.style.setProperty("--dx", `${Math.random() * 50 - 25}px`);
-    b.style.setProperty("--dur", `${2.6 + Math.random() * 2.4}s`);
+    b.style.setProperty("--dx", `${Math.random() * 60 - 30}px`);
+    b.style.setProperty("--rise", `${y + size + 20}px`);
+    b.style.setProperty("--dur", `${2.4 + (y / 160) + Math.random() * 1.6}s`);
     node.appendChild(b);
     b.addEventListener("animationend", () => b.remove());
   };
 
-  const handleMove = (e) => {
-    if (reduced) return;
+  const onMouseMove = (e) => {
+    if (reduced || !ref.current) return;
     const now = e.timeStamp || Date.now();
-    if (now - last.current < 80) return;
+    if (now - last.current < 90) return;
     last.current = now;
     const r = ref.current.getBoundingClientRect();
-    spawnBubble(e.clientX - r.left);
+    spawnBubble(e.clientX - r.left, e.clientY - r.top);
   };
 
-  const handleClick = (e) => {
-    if (reduced) return;
+  const onClick = (e) => {
+    if (reduced || !ref.current) return;
     const node = ref.current;
     const r = node.getBoundingClientRect();
     const x = e.clientX - r.left;
     const y = e.clientY - r.top;
-    for (let i = 0; i < 9; i += 1) spawnBubble(x + (Math.random() * 40 - 20));
+    for (let i = 0; i < 9; i += 1) spawnBubble(x + (Math.random() * 40 - 20), y);
     const ripple = document.createElement("span");
     ripple.className = "fb-ripple";
     ripple.style.left = `${x}px`;
@@ -55,15 +74,25 @@ function BubbleSurface() {
     ripple.addEventListener("animationend", () => ripple.remove());
   };
 
+  return { onMouseMove, onClick };
+}
+
+function BubbleLayer({ layerRef }) {
   return (
-    <div
-      className="fb-surface"
-      ref={ref}
-      onMouseMove={handleMove}
-      onClick={handleClick}
-      aria-hidden="true"
-    >
-      <span className="fb-hint">psst — run your cursor through the water 🫧</span>
+    <div className="fb-layer" ref={layerRef} aria-hidden="true">
+      {AMBIENT.map((b, i) => (
+        <span
+          key={i}
+          className="fb-ambient"
+          style={{
+            left: b.left,
+            width: `${b.size}px`,
+            height: `${b.size}px`,
+            animationDelay: `${b.delay}s`,
+            animationDuration: `${b.dur}s`,
+          }}
+        />
+      ))}
     </div>
   );
 }
@@ -105,10 +134,12 @@ const SOCIALS = [
 
 function Footer() {
   const year = new Date().getFullYear();
+  const layerRef = useRef(null);
+  const field = useBubbleField(layerRef);
 
   return (
-    <footer className="site-footer">
-      <BubbleSurface />
+    <footer className="site-footer" onMouseMove={field.onMouseMove} onClick={field.onClick}>
+      <BubbleLayer layerRef={layerRef} />
       <div className="site-footer__inner">
         <div className="site-footer__grid">
           <div className="site-footer__brand">
@@ -171,6 +202,7 @@ function Footer() {
           <span className="site-footer__bottom-right">
             Indian Institute of Technology Kanpur
           </span>
+          <span className="fb-hint">run your cursor through the water 🫧</span>
         </div>
       </div>
     </footer>

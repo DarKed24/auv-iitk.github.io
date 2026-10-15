@@ -1,7 +1,7 @@
 import React from "react";
 import SectionHeading from "components/UI/SectionHeading";
-import niotwin from "assets/img/niotwinner.png";
-import desbot from "assets/img/atal_design.png";
+import niotwin from "assets/img/niotwinner.jpg";
+import desbot from "assets/img/atal_design.jpg";
 import atwork from "assets/img/newreplaced.jpg";
 
 const PILLARS = [

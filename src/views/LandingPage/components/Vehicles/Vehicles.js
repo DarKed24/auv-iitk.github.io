@@ -1,7 +1,7 @@
 import React, { useRef } from "react";
-import atal from "assets/img/atal.png";
+import atal from "assets/img/atal.jpg";
 import varun from "assets/img/varun/varun-underwater.jpg";
-import anahita from "assets/img/anahita/anahita-underwater.png";
+import anahita from "assets/img/anahita/anahita-underwater.jpg";
 import { Link } from "react-router-dom";
 
 const FLEET = [
@@ -73,7 +73,7 @@ function Vehicles() {
                 <Link to={v.link}>
                   <TiltFrame>
                     <div className="lm-vehicle__frame">
-                      <img src={v.img} alt={v.name} />
+                      <img src={v.img} alt={v.name} loading="lazy" decoding="async" />
                     </div>
                   </TiltFrame>
                 </Link>
