@@ -6,6 +6,11 @@
    (html font-size is 62.5%  ->  1rem = 10px)
    ===================================================================== */
 
+/* in-page anchors land below the fixed navbar */
+.landing-modern #fleet {
+  scroll-margin-top: 9rem;
+}
+
 /* ---------- Scroll progress + depth meter ---------- */
 .lm-depth {
   position: fixed;

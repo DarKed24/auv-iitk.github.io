@@ -31,6 +31,12 @@
   animation: navDrop 0.5s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
+/* On the landing page the bar is already on screen when it fixes itself —
+   no drop-in needed. */
+.landing-modern .navbar.custom-navbar-auv.scrolled {
+  animation: none;
+}
+
 @keyframes navDrop {
   from { transform: translateY(-100%); opacity: 0; }
   to { transform: translateY(0); opacity: 1; }

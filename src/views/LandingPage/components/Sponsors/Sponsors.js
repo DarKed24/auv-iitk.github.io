@@ -28,7 +28,7 @@ function MarqueeRow({ logos, reverse }) {
       <div className="lm-logos__track">
         {items.map((l, i) => (
           <div className="lm-logos__tile" key={i}>
-            <img src={l.src} alt={l.alt} />
+            <img src={l.src} alt={l.alt} loading="lazy" decoding="async" />
           </div>
         ))}
       </div>

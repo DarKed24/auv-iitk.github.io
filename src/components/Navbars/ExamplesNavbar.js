@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import classnames from "classnames";
 import auvlogomini from "../../assets/img/logos/logo_v1.32.png";
@@ -43,16 +43,31 @@ function ExamplesNavbar() {
   const isLanding = pathname.startsWith("/landing-page");
   const [navbarCollapse, setNavbarCollapse] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const [spacer, setSpacer] = useState(0);
+  const wrapRef = useRef(null);
 
-  // On the landing page the bar stays in flow under the hero and only
-  // frosts + fixes itself once the user has scrolled past the hero.
+  // On the landing page the bar sits in flow directly under the hero and
+  // becomes fixed the moment the hero has scrolled out of view. A spacer of
+  // the bar's own height keeps the page from jumping when it leaves the flow.
   useEffect(() => {
     if (!isLanding) return undefined;
-    const onScroll = () => setScrolled(window.scrollY > 850);
+    const onScroll = () => {
+      const node = wrapRef.current;
+      if (node && !node.classList.contains("scrolled") && !navbarCollapse) {
+        setSpacer(node.offsetHeight);
+      }
+      const hero = document.querySelector(".lp-hero");
+      const threshold = hero ? hero.offsetHeight - 1 : 850;
+      setScrolled(window.scrollY >= threshold);
+    };
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
-  }, [isLanding]);
+    window.addEventListener("resize", onScroll);
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("resize", onScroll);
+    };
+  }, [isLanding, navbarCollapse]);
 
   // Close the mobile menu on navigation.
   useEffect(() => {
@@ -68,7 +83,9 @@ function ExamplesNavbar() {
   });
 
   return (
-    <div className={wrapperClass}>
+    <>
+      {isLanding && scrolled && <div style={{ height: spacer }} aria-hidden="true" />}
+      <div className={wrapperClass} ref={wrapRef}>
       <Navbar expand="xl" className="custom-navbar-auv" aria-label="Main navigation">
         <Container className="navbar-container">
           <div className="navbar-translate">
@@ -203,7 +220,8 @@ function ExamplesNavbar() {
           </Collapse>
         </Container>
       </Navbar>
-    </div>
+      </div>
+    </>
   );
 }
 

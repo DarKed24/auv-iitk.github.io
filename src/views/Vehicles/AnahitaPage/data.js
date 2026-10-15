@@ -53,7 +53,7 @@ const data = {
             "title": "Frame",
             "content": "The frame is completely redesigned to provide solid structural support and hold all the components together. One of the main challenges in the frame design was to reduce the mass without compromising the structural rigidity. Unlike our previous vehicle, VARUN, the frame is wired with truss structures to provide structural support without reducing the mass. After completing the initial design, ANSYS Topology optimization was used to reduce the mass. A total reduction of 80% in mass was achieved using this method. The frame is manufactured using Abrasive Water-jet Machining using 6061-T6 Alloy. Aluminium sheets of two different thickness: 5mm thick sheets for side plates and 4mm thick sheets for the rest of the frame are used for the frame design. The significant advantage of such a frame design is that all the components are attached directly to the frame, eliminating the need for separate mounts for individual parts. In addition, the design reduces weight, complexity and allows for efficient use of space. All components are placed such that the centre of mass is at the relative centre, ensuring directional stability and ease of control.",
             "imgDesc": "Anahita's Frame",
-            "img": "frame.png"
+            "img": "frame.jpg"
         },
         {
             "id": 2,
@@ -67,56 +67,56 @@ const data = {
             "title": "Camera Casing",
             "content": "The Camera casings provide waterproof protection for the two cameras employed for the front view and the bottom view individually. The cameras have a 90◦ field of view. Hence the design ensures that the camera's view is not obstructed. The entire casing is manufactured using Aluminium 6061-T6 Alloy by Computer Numeric Control (CNC). The O-ring is pressed by a 5mm thick Aluminium plate, fastened with Stainless Steel Allen bolts to provide adequate force for sealing. Acrylic plates support the camera maintaining its orientation, and Fischer connector provides a waterproof interface for signal wires.",
             "imgDesc": "The Camera casings",
-            "img": "camera.png"
+            "img": "camera.jpg"
         },
         {
             "id": 4,
             "title": "Hulls",
             "content": "The main hull houses all the electronics of the vehicle and is the primary source of buoyancy. The hull consists of three parts- Acrylic tube, Flange and Cap. The Acrylic tube acts as a transparent interface to monitor all the electronic displays and the LED indicators. Two static radial O-rings prevent water leakage. The SOV casing design is similar to the hull but a little smaller in size. It houses an air cylinder, pressure regulator, two 3/2 valves and two 5/2 valves for the pneumatic actuators present in the Grabber and the Torpedo. The air connections between the casing and the actuators are completely modular due to bulkhead Air Connectors' use.",
             "imgDesc": "Main hull",
-            "img": "hull.png"
+            "img": "hull.jpg"
         },
         {
             "id": 5,
             "title": "Battery Pod",
             "content": "Anahita is equipped with an external battery pod system with two battery pods, each containing one battery. The batteries are hence easy to replace and charge. It also frees up valuable space in the main hull. The battery pod consist of two parts- the outer body and the pod internals. The outer body of the battery pod consists of an acrylic tube closed at one end. The battery pod is 20 cm long, with an OD of 130mm and ID of 114mm and thickness of 8mm, sufficiently robust and large enough to hold the batteries. Each battery pod features an external KIll switch and one 2-pin Fischer connector for the power supply. Each battery pod houses a 22.2V 10000mAh Tattu battery. The internals consists of a battery holder consisting of three nylon plates mounted inside the slits of three nylon circular disc that fits precisely inside the circular hull. 2mm gaskets are used for watertight sealing of the battery pods. The new battery pods are hot-swappable, i.e. we can swap individual battery pods without affecting the system's operation. The whole body of Battery pods is made of Acrylic (PMMA), a transparent light-weighted thermoplastic with high tensile strength, flexural strength, transparency, chemical resistance, and heat resistance.",
             "imgDesc": "The battery pod system",
-            "img": "battery.png"
+            "img": "battery.jpg"
         },
         {
             "id": 6,
             "title": "IMU Casing",
             "content": "The Inertial Measurement Unit takes in the earth's magnetic field as a reference to measure the changes in the angular position during a vehicle's motion. Hence, any magnetic disturbances make the readings of the IMU susceptible to errors. In order to counter this, the IMU is given a separate watertight casing to prevent magnetic interference due to distribution boards and solenoid valves. The casing is milled entirely out of a single acrylic block. The casing houses the IMU sensor at a certain height to prevent any damage from accidental water leakage. Separate mounting points for both the developer board and the IMU enable easy assembly and disassembly.",
             "imgDesc": "IMU Casing",
-            "img": "imu.png"
+            "img": "imu.jpg"
         },
         {
             "id": 7,
             "title": "Grabber",
             "content": "A scissor mechanism that can provide a total maximum elongation of 300mm performs the lifting mechanism. The grabbing mechanism employs a four-finger mechanism, which is actuated pneumatically by two pistons. The scissors mechanism is highly proficient as it provides an extension of 300mm from just a linear actuation of 50mm and the grabber achieves a maximum diagonal extension of 120mm with a 10mm actuation.",
             "imgDesc": "Grabber in action",
-            "img": "gabber.png"
+            "img": "gabber.jpg"
         },
         {
             "id": 8,
             "title": "Marker Dropper",
             "content": "The dropper prototype can hold two markers (golf balls of diameter 45mm) and drop them independently. A waterproof servo actuates the dropper. The prototype mainly consists of two parts: the outer cylinder clamped onto the frame and the inner cylinder containing the two balls. The design exploits the non-concentric nature of the cylindrical hole made into the two components, which helps drop the balls at the desired locations. Being actuated using a servo instead of pneumatics, the mechanism is more precise and accurate since the servo can rotate it by any angle precisely. The dropper has been manufactured by Rapid prototyping, using PLA as the additive material. ",
             "imgDesc": "Marker Dropper",
-            "img": "markerdropper.png"
+            "img": "markerdropper.jpg"
         },
         {
             "id": 9,
             "title": "Torpedo",
             "content": "The torpedo is 3D printed using PLA. Its average density is slightly less than that of water. Being positively buoyant, it can be recovered easily even after it has been fired underwater. Its streamlined design reduces drag. The centre of gravity and centre of buoyancy does not create torques as they coincide with the torpedo centre, resulting in a highly stable design. The tail fins reduce tilting and change of torpedo direction, forcing it to move linearly until it stops. When the torpedo starts going off its straight trajectory, i.e. it tilts, the fins tilt and make an angle with the flow. This flow generates torque restoring the torpedo to its initial position.",
             "imgDesc": "Complete view of the Torpedo",
-            "img": "torpedo.png"
+            "img": "torpedo.jpg"
         },
         {
             "id": 10,
             "title": "Pneumatic System",
             "content": "The pneumatic air cylinder contains air at 50 bar. It is brought down to desired pressure using a pressure regulator, which is taken to the SOV. The NUC signals energize the SOV and allow air to pass through it, propelling the torpedo forward.",
             "imgDesc": "Pneumatic System",
-            "img": "pneumatic.png"
+            "img": "pneumatic.jpg"
         },
     ],
     "electrical": [
@@ -125,7 +125,7 @@ const data = {
             "title": "Power Management",
             "content": "Anahita consists of a separate Power Distribution System and a Monitoring System. Two 22.2V 10000mAh Lithium Polymer batteries power the vehicle. Li-Po batteries are chosen not only for their high energy density but also an outstanding balance between other features such as high discharge rate, low self-discharge rate, and good cycle life. In addition, various components in the vehicle require input power at different voltages for their functioning. The 22.2V supply is distributed into 5V, 12V and 19V regulated rails using buck converters (LM25085 from Texas Instruments). An unregulated rail created from the batteries powers the thrusters. The current and voltage across each rail of the Power Distribution System are monitored. The current is monitored by Hall effect current sensors (ACS725 from Allegro Microsystems). Voltage is monitored by first using a voltage divider to convert the rail voltage into a value in the 0-5V range and then reading the value using the built-in ADC in the Arduino. Arduino Mega is used for controlling the actuation and reading data from various sensors, which in turn is controlled by an Intel NUC. The vehicle has two kill switches to terminate the mission in need of faults or to use it as a switch. One switch is the Hard Kill switch which completely shuts down the vehicle. The other soft kill switch stops the power to all the processes except the power to the Onboard computer.",
             "imgDesc": "Depiction of Power Management in Anahita",
-            "img": "powermgmt.png"
+            "img": "powermgmt.jpg"
         },
         {
             "id":2,
@@ -146,14 +146,14 @@ const data = {
             "title": "Sensors",
             "content": "The vehicle uses a 30 bar pressure sensor(from Blue Robotics) which measures the depth with a resolution of 2mm and communicates via I2C protocol with the microcontroller. Vehicle needs a visual sensor which can detect and recognize object around its surroundings and take appropriate actions. ANAHITA uses two Logitech C930E cameras. These cameras come with 90◦ field of view, support and 4x zoom in 1080p with autofocus feature and capable of working in low light conditions too.ANAHITA uses the AHRS-8 from Sparton as its primary Inertial Measurement Unit. It is fully temperature compensated over the operating range of -40◦ C to 70◦ C. It has a low power consumption Moreover, power management (Sleep Mode) supports multiple communication protocols and has centripetal acceleration correction.",
             "imgDesc": "IMU, Camera and Pressure Sensor",
-            "img": "sensors.png"
+            "img": "sensors.jpg"
         },
         {
             "id":5,
             "title": "Connectors and Penetrators",
             "content": "The electrical connections going in and out of all the watertight enclosures are made using Fischer connectors and Blue Robotics Penetrators. Connectors are mainly used for delivering power across the enclosures. Using a connector for the signal wires carrying the data from sensors may result in data loss. In order to prevent this, penetrators are used to directly carry the signal wire from the sensors to the main hull, leaving no room for errors. Both the connectors and penetrators are sealed using RS 851-044 epoxy, which is best suited for the purpose.",
             "imgDesc": "Connectors and Penetrators",
-            "img": "conandpen.png"
+            "img": "conandpen.jpg"
         }
     ],
     "software": [
@@ -206,7 +206,7 @@ const data = {
             "title": "Computer Vision",
             "content": "There is poor visibility in underwater vision because of the propagated light's attenuation. The attenuation of light increases exponentially with increasing distance and increasing depth, mainly due to absorption and scattering effects. Due to absorption, a raw underwater image appears hazy, and the contrast is affected due to scattering. Due to this phenomena, distant objects almost disappear or are difficult to discern in an underwater image. Therefore, the following filters are applied linearly: Contrast Limited Adaptive Histogram Equalizationm, Bilateral Filter, White Balancing, Bilateral Filter and Fast Non-Local Means denoising.",
             "imgDesc": "Preprocessing",
-            "img": "cv.png"
+            "img": "cv.jpg"
         },
         {
             "id": 5,
@@ -227,7 +227,7 @@ const data = {
             "title": "Object Detection",
             "content": "For most tasks, the raw image is first preprocessed ('blue filtered'). After this, the main object of interest is identified using techniques like thresholding followed by morphological operations. The edge of this blob is identified either by using the Canny Edge detection algorithm followed by Probabilistic Hough Line Transform or contouring. The blob centre is calculated using a bounding rectangle, bounding ellipse or assigning weights to the contours. The distance of the object from the vehicle is calculated with respect to the camera, and this is done by an exponential mapping of a particular dimension of the blob with its actual distance from the vehicle.",
             "imgDesc": "Object Detection",
-            "img": "objdetection.png"
+            "img": "objdetection.jpg"
         }
     ]
 }

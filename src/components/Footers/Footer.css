@@ -195,36 +195,17 @@
   color: #c2d2de;
 }
 
-/* ---------- Interactive water surface ---------- */
-.fb-surface {
-  position: relative;
-  height: 11rem;
-  overflow: hidden;
-  cursor: crosshair;
-  border-bottom: 1px solid rgba(120, 200, 235, 0.1);
-  background: linear-gradient(180deg, rgba(67, 208, 240, 0.07), transparent 75%);
-}
-.fb-hint {
+/* ---------- Bubble field (whole footer) ---------- */
+.fb-layer {
   position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  font-family: var(--font-body-modern);
-  font-size: 1.25rem;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  color: rgba(159, 180, 196, 0.55);
+  inset: 0;
+  z-index: 2;
+  overflow: hidden;
   pointer-events: none;
-  transition: opacity 0.3s ease;
-  white-space: nowrap;
 }
-.fb-surface:hover .fb-hint {
-  opacity: 0.3;
-}
-
+.fb-ambient,
 .fb-bubble {
   position: absolute;
-  bottom: 0;
   border-radius: 50%;
   background: radial-gradient(
     circle at 30% 30%,
@@ -235,12 +216,32 @@
   border: 1px solid rgba(255, 255, 255, 0.22);
   box-shadow: 0 0 8px rgba(120, 210, 245, 0.45);
   pointer-events: none;
+}
+/* passive bubbles drift from the bottom edge all the way up */
+.fb-ambient {
+  bottom: -3rem;
+  opacity: 0;
+  animation: fbAmbient linear infinite;
+}
+@keyframes fbAmbient {
+  0% { opacity: 0; transform: translate(0, 0) scale(0.6); }
+  10% { opacity: 0.7; }
+  50% { transform: translate(1.6rem, -36rem) scale(1); }
+  85% { opacity: 0.5; }
+  100% { opacity: 0; transform: translate(-1.2rem, -72rem) scale(1.1); }
+}
+/* cursor-spawned bubbles rise from where the pointer was */
+.fb-bubble {
+  transform: translate(-50%, -50%);
   animation: fbRise var(--dur, 3s) ease-in forwards;
 }
 @keyframes fbRise {
-  0% { transform: translate(0, 0) scale(0.5); opacity: 0; }
+  0% { transform: translate(-50%, -50%) scale(0.5); opacity: 0; }
   15% { opacity: 0.95; }
-  100% { transform: translate(var(--dx, 0), -11rem) scale(1.05); opacity: 0; }
+  100% {
+    transform: translate(calc(-50% + var(--dx, 0px)), calc(-50% - var(--rise, 20rem))) scale(1.05);
+    opacity: 0;
+  }
 }
 
 .fb-ripple {
@@ -256,6 +257,16 @@
 @keyframes fbRipple {
   0% { width: 4px; height: 4px; opacity: 0.9; }
   100% { width: 13rem; height: 13rem; opacity: 0; }
+}
+
+.fb-hint {
+  flex-basis: 100%;
+  text-align: center;
+  font-family: var(--font-body-modern);
+  font-size: 1.15rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: rgba(159, 180, 196, 0.45);
 }
 
 /* ---------- Responsive ---------- */
@@ -301,11 +312,15 @@
   }
 }
 
-/* The interactive bubble surface is cursor-driven, so it makes no sense on
-   touch devices or narrow screens — hide it there (also trims the footer
-   height on mobile/tablet-portrait). */
+/* The cursor hint only makes sense on hover-capable devices. */
 @media (hover: none), (max-width: 1024px) {
-  .fb-surface {
+  .fb-hint {
     display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .fb-ambient {
+    animation: none;
   }
 }

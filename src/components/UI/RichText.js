@@ -15,9 +15,20 @@ export function inline(text) {
   });
 }
 
-/* Resolves an image path relative to src/assets/img at build time. */
+/*
+ * Resolves an image path relative to src/assets/img at build time. The context
+ * is limited to the folders data files actually point into, so webpack only
+ * emits those (a bare `require("assets/img/" + x)` would copy the whole tree,
+ * including large unused files, into the build).
+ */
+const IMAGES = require.context(
+  "assets/img",
+  true,
+  /^\.\/(team_2025|team|Legacy|blog\/BlogImages|atal|anahita|tarang|varun\/VARUN-AUV|logos|sponsors)\/.*\.(png|jpe?g|jfif|gif|webp|svg)$/i
+);
+
 export function img(path) {
-  return require(`assets/img/${path}`);
+  return IMAGES(`./${path}`);
 }
 
 const FIG_SIZE = { sm: "oc-figure--sm", md: "", lg: "oc-figure--lg" };

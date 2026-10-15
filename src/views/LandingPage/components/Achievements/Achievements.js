@@ -1,7 +1,7 @@
 import React from "react";
 import paper from "../../../../assets/img/Achievements/mech-paper.jpg";
 import robosub from "../../../../assets/img/Achievements/robosub2021.jpeg";
-import niot from "../../../../assets/img/Achievements/niot.png";
+import niot from "../../../../assets/img/Achievements/niot.jpg";
 import { Link } from "react-router-dom";
 
 const MILESTONES = [
@@ -44,7 +44,7 @@ function Achievements() {
           {MILESTONES.map((m) => (
             <Link to={m.link} className="lm-achv__card" key={m.title}>
               <div className="lm-achv__media">
-                <img src={m.img} alt={m.title} />
+                <img src={m.img} alt={m.title} loading="lazy" decoding="async" />
                 <span className="lm-achv__year">{m.year}</span>
               </div>
               <div className="lm-achv__body">
